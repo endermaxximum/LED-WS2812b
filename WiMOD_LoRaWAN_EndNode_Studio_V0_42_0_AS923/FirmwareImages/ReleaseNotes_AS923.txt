@@ -1,0 +1,225 @@
+--------------------------------------------
+   WiMOD LoRaWAN Firmware AS923 release_notes.txt
+   2018 IMST GmbH
+--------------------------------------------
+
+
+.1 Content:
+----------------------------------------------------------------------------------------------------------
+This file contains an overview about the most important feature updates and bugfixes 
+----------------------------------------------------------------------------------------------------------
+
+.2 Supported Hardware
+--------------------------------------------------------------------------
+- iM980A     Module : WiMOD_LoRaWAN_EndNode_Modem_AS923_iM980A_Vx_y.hex
+- iU980A     Module : WiMOD_LoRaWAN_EndNode_Modem_AS923_iU980A_Vx_y.hex
+
+.3 Revision History:
+--------------------------------------------------------------------------
+09.02.2018 - Release V2.0 / Build Count 138
+     - LoRaWAN frame counter changed to 32 bits
+     - Class C optimization
+     - PowerSaver optimization
+     - HCI changes:
+        * Duty Cycle only configurable in Customer Mode
+	* LinkADRReq configuration available in Customer Mode
+	  (0 = v1.0.2 (default), 1 = semtech proposal, 2 = KPN proposal)
+     - Bugfix in class C: Rx windows opened if a complete downlink received before
+       (unlikely with the default settings).
+     - Bugfix if unexpected downlink received 
+       (downlink ignored if C-Data sent and no ACK included in the downlink frame)
+     - No Data Indication with "Wrong Device Address" error not sent if device in class C
+     - HCI changes: 
+        * Max. size for piggybacked MAC commands configurable
+        * New HCI message to configure the max. tx power for each sub-band (EU868)
+     - Change on DevStatusAns: SNR value sent in Margin field 
+     
+21.09.2017 - Release V2.0 / Build Count 116
+     - New bands added for Asia "AS 923 MHz" support (only available for iM980A)
+
+15.09.2017 - Release V2.0 / Build Count 114
+     - New settings in "RU 868 MHz" band for Russia
+     
+06.09.2017 - Release V2.0 / Build Count 113
+     - New band "RU 868 MHz" added for Russia support
+     - Change in EU868 due to RED: EIRP limited to 8dBm in 865-868 MHz sub-band
+     
+25.08.2017 - Release V2.0 / Build Count 112
+     - Changes on tx power configuration (EIRP and RF Gain settings)
+     - Changes on HCI interface:
+        * "Get supported bands" message added
+        * Change error code handling of set radio configuration
+
+16.08.2017 - Release V2.0 / Build Count 111
+     - LED control by Power Saving functionality removed
+     - Bugfix in iM881A related to USART Tx pin status during Power Saving
+
+10.08.2017 - Release V2.0 / Build Count 110
+     - Bugfix related to random generator
+     - Change on frame pending bit handling: max. 2 empty uplinks sent
+
+20.07.2017 - Release V2.0 / Build Count 109
+     - Bugfix related to class C and frame pending bit
+
+27.06.2017 - Release V2.0 / Build Count 108
+     - Changes according to LoRaWAN Regional Parameters v1.0.2rB     
+     - Changes on HCI inteface: update for transmit indications and network status information       
+     - Internal change in radio driver
+     - Change in duty-cycle handling for EU868: 3 sub-bands with 1% duty-cycle
+     - DIChannelReq added for LoRaWAN v1.0.2
+     - Singapore 923 MHz and New Zealand 865 MHz Bands removed 
+     - New band "IN865 865 MHz (Rx2: SF8)" for old setting. Band "IN865 865 MHz"
+     implemented according to "LoRaWAN Regional Parameters v1 1 draft8" (e.g. SF10 in Rx2)
+     - Change on both India bands: SF7BW125 as maximum datarate in Rx1 
+     (according to "LoRaWAN Regional Parameters v1 1 draft8")
+     - Maximum allowed payload sized from LoRaWAN Regional Parameters document satisfied
+    
+04.11.2016 - Release V1.17 / Build Count 82
+    - FSK and SF7BW250 removed from default settings
+    
+29.09.2016 - Release V1.17 / Build Count 80
+    - Random tx channel selection
+    
+12.09.2016 - Release V1.17 / Build Count 78
+    - Change on HCI-Interface:
+        * Device Reactivation added
+    - First Release available for iM881A 
+
+24.06.2016 - Release V1.16 / Build Count 72
+    - Change on HCI-Interface:
+        * RTC Alarm support
+        * New Network Status "Joining OTAA" added. 
+        A "Join Request" will be sent after a reset of module in case a 
+        "Join Network" was requested.    
+    - Swappping of Application EUI and Device EUI for LoRaWAN radio interface
+    Note that it is recommended to set again the OTAA parameters and Device EUI 
+    following the new byte ordering (MSB first) after a FW upgrade, to ensure 
+    connectivity with the network server.
+    
+19.05.2016 - Release V1.15 / Build Count 68
+    - ABP and OTAA parameters not readable
+    - Change on HCI-Interface:
+        * Custom Configuration added
+        * Extended HCI Output configuration added in Radio Stack Configuration
+    - New band "EU 868 MHz (Rx2: SF9)" added
+    - Change on internal handling of ABP and OTAA parameters:
+    Note that it is recommended to set the ABP and OTAA parameters after a
+    FW upgrade/downgrade, because their content may be different.
+
+19.04.2016 - Release V1.14 / Build Count 65
+    - Changes according to LoRaWAN Specification V1.0.1:
+        * Ignore frame if MAC commands simultaneously in payload and header
+	* RXParamSetupAns & RXTimingSetupAns added in FOpts till downlink received
+	* LinkADRReq discarded if channel mask disables all channels
+        * ADRACKReq: device will further lower its data rate every ADR_ACK_DELAY
+        * DutyCycleReq: "a value 0xFF means device is OFF" removed
+    - Join Request automatically sent after reset, if device was activated by OTA
+    - Bugfix: no HCI response sent if there is a gap between the received characters
+
+18.03.2016 - Release V1.13 / Build Count 62
+    - Current consumption improved: powersaving direct after Rx2
+    - Singapore settings changed: SF12 for Rx2
+
+26.02.2016 - Release V1.13 / Build Count 60
+    - Set configuration: tx power, data rate and duty cycle change immediately
+    - If band changed: device deactivated
+    - Change on HCI-Interface: LORAWAN_STATUS_CHANNEL_NOT_AVAILABLE added
+    
+18.02.2016 - Release V1.13 / Build Count 58
+    - Multi Band support: EU868, IN865, NZ 865 and SG923
+
+05.02.2016 - Release V1.12 / Build Count 56
+    - LoRa Alliance Certification
+    - Frequency change for each retransmission of Join Request
+
+01.02.2016 - Release V1.11 / Build Count 54
+    - Optimization of Rx window timing
+    - Changes on HCI-Interface (see WiMOD_LoRaWAN_EndNode_Modem_HCI_Spec_V1_3.pdf)
+        * Number of retransmissions configurable
+        * Device status with radio statistics added
+    - Powersaving possible if Class C selected: ~11 mA
+
+08.12.2015 - Release V1.11 / Build Count 45
+    - Change on HCI-Interface: MAC commands support 
+    (see WiMOD_LoRaWAN_EndNode_Modem_HCI_Spec_V1_1.pdf)
+    - Three default channels enabled: 868.1MHz, 868.3MHz, 868.5MHz
+    - Test Application included (for certification process)
+    - Alive message sent after activation of device
+    - LMiC V1.5, modifications:
+        * LinkCheckReq command added according to LoRaWAN Specification V1.0
+        * NbRep field of LinkADRReq added
+        * MAX_FCNT_GAP added to downlink sequence number handling
+        * No change of the default channels allowed using NewChannelReq
+        * MAC commands reply with same order as request
+        * If MAC answer is too big for header -> MAC commands sent as payload immediately
+        * Changes in join procedure: stop sending after one join procedure
+        (see WiMOD_LoRaWAN_EndNode_Modem_Feature_Spec_V1_1.pdf)
+        * Error notification if channel blocked by duty cycle
+        (see WiMOD_LoRaWAN_EndNode_Modem_HCI_Spec_V1_1.pdf)
+        * ACK retransmitted if U-Data retransmission configured
+        * Max packet length: 128 bytes (SF7-SF12) / 63 bytes (FSK)
+        * Device address null allowed
+            
+15.09.2015 - Release V1.10 / Build Count 26
+    - Default datarate for the second window changed to SF12 
+    (Exp LoRa Studio V0.24.3 required)
+    - Status byte added in HCI Ping command
+    - Frame Penging bit added to HCI interface (see WiMOD_LoRaWAN_EndNode_Modem_HCI_Spec_V0_9.pdf)
+      (WiMOD LoRaWAN EndNode Studio V0.23.1 required)
+    - LMiC V1.5, modifications:
+        * ADRACKReq changed according to LoRaWAN Specification V1.0
+        * DLSettings and RxDelay within Join Accept added
+        * LinkADRReq command accepted only if ADR enabled
+        * Added reception of MAC commands sent in payload with port 0x00
+        * DevStatusAns: margin between -32 and 31. Battery and margin sent in the correct byte order
+        * RXTimingSetup command added
+        * DLSettings within RXParamSetup command added
+        * NewChannel command: a frequency value of 0 disables the channel
+    
+19.06.2015 - Release V1.8 / Build Count 20
+    - Class C support added in LMiC V1.5:
+        * No multicas messages support
+        * No powersaving if Class C selected    	
+    - HCI changes for Duty Cycle Control and Class C -> ExpLoRa Studio V0.21.2 required
+    
+29.05.2015 - Release V1.7 / Build Count 18
+    - FSK mode support added/corrected in LMiC V1.5 + SX1273 Driver
+    - HCI changes for FSK mode support -> Exp LoRa Studio / 
+    WiMOD LoRaWAN EndNode Studio V0.21.0 required
+    - HCI protocol according to WiMOD_LoRaWAN_EndNode_Modem_HCI_Spec_V0_7.pdf
+    - Power Saving optimized: I_sleep  < 2uA
+    
+08.05.2015 - Release V1.5 / Build Count 10
+    - LMiC V1.4 integrated, with modifications:
+    	* Deactivation of duty cycle management
+	* Default datarate for the second window SF9 instead of SF12
+	* Join request sent inmediatly (without adding random waiting time)
+	* Join request frequencies changed: only 868.1, 868.3 and 868.5 MHz used
+	* LinkAdrReq command implemented according to LoRaWAN Specification V1.0
+	  (if ChMaskCntl = 6, all defined channels enabled)
+    - Changes on HCI-Interface (see WiMOD_LoRaWAN_HCI_Spec_V0_6.pdf)	  
+    - Power Saving improved
+        * 40 dummy characters for wakeup via HCI message required
+    - Device-EUI handling changed
+        * Device-EUI parameter removed from "Set/Get Join Parameter" messages
+        * new Device-EUI Set/Get messages added 
+        * Write-Protection added for Device-EUI
+        * Customer Mode added for write access to 64-bit Device-EUI
+    - System Operation Modes: Application Mode / Customer Mode added       
+        * HCI messages for selection of operation mode added
+
+20.04.2015 - Release V1.4 / Build Count 6
+    - LMiC V1.4 integrated
+    
+16.04.2015 - Release V1.3 / Build Count 5 
+    - First Release, based on LMiC 1.2
+
+   
+.4 Known Limitations
+-----------------------------------------------------------------------------------------------------------
+- No multicast messages implemented (Class C)
+- FSK mode not supported during continuously listening (Class C)   
+
+
+
+

@@ -1,0 +1,157 @@
+{
+    "FileVersion": "1.17",
+    "SupportedBands": [
+        {
+            "ID"        :   10,
+            "Title"     :   "AS923 (BN 923 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Brunei"
+        },
+        {
+            "ID"        :   11,
+            "Title"     :   "AS923 (KH 923 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Cambodia"
+        },
+        {
+            "ID"        :   12,
+            "Title"     :   "AS923 (ID 923 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Indonesia"
+        },
+        {
+            "ID"        :   13,
+            "Title"     :   "AS923 (JP 920 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Japan"
+        },
+        {
+            "ID"        :   14,
+            "Title"     :   "AS923 (LA 923 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Laos"
+        },
+        {
+            "ID"        :   15,
+            "Title"     :   "AS923 (NZ 915 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "New Zealand"
+        },
+        {
+            "ID"        :   16,
+            "Title"     :   "AS923 (SG 920 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Singapore"
+        },
+        {
+            "ID"        :   17,
+            "Title"     :   "AS923 (TW 922 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Taiwan"
+        },
+        {
+            "ID"        :   18,
+            "Title"     :   "AS923 (TH 920 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Thailand"
+        },
+        {
+            "ID"        :   19,
+            "Title"     :   "AS923 (VN 920 MHz)",
+            "Key"       :   "AS923",
+            "Region"    :   "Vietnam"
+        }
+    ],        
+    "AS923": {
+        "EndNode": {
+            "DataRates": [
+                {
+                    "ID"        :   0,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF12",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "250 bps"
+                },
+                {
+                    "ID"        :   1,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF11",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "440 bps"
+                },
+                {
+                    "ID"        :   2,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF10",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "980 bps"
+                },
+                {
+                    "ID"        :   3,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF9",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "1760 bps"
+                },
+                {
+                    "ID"        :   4,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF8",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "3125 bps"
+                },
+                {
+                    "ID"        :   5,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "5470 bps"
+                },
+                {
+                    "ID"        :   6,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "250 kHz",
+                    "BitRate"   :   "11000 bps"
+                },
+                {
+                    "ID"        :   7,
+                    "Modulation":   "FSK",
+                    "DataRate"  :   "50k",
+                    "Bandwidth" :   "n.a.",
+                    "BitRate"   :   "50000 bps"
+                }
+            ],
+            "Frequencies": {
+                "UpLink": {
+                        "ID0":   "923200000 Hz",
+                        "ID1":   "923400000 Hz"
+                },
+                "DownLink": {
+                        "ID0":   "923200000 Hz",
+                        "ID1":   "923400000 Hz",
+                        "ID128":   "923200000 Hz"
+                }
+            }     
+        },        
+        "Server": {
+            "UpLinkPowerLevels": {
+                "ID0" : "16 dBm",
+                "ID1" : "14 dBm",
+                "ID2" : "12 dBm",
+                "ID3" : "10 dBm",
+                "ID4" : "8 dBm",
+                "ID5" : "6 dBm",
+                "ID6" : "4 dBm",
+                "ID7" : "2 dBm"
+            },
+            "DownLinkSlot2" : {
+                "Frequency" :  "923200000 Hz",
+                "Modulation":  "LoRa",
+                "DataRate"  :  "SF10",
+                "Bandwidth" :  "BW125"        
+            }            
+        }
+    }    
+}    
+ 

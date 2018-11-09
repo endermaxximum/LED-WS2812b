@@ -1,0 +1,32 @@
+SOFTWARE LICENSE POLICY
+
+Please read the following License Agreement carefully. It is a legal agreement between you (either an individual or a single entity, in the following called Licensee) and IMST GmbH for the software product IMST WiMOD-Communication-Software, in the following called "SOFTWARE". By installing, copying, or otherwise using the SOFTWARE, you as the Licensee agree to be bound by the terms of this agreement. If you do not agree to the terms of this agreement, do not install or use the SOFTWARE; you may, however, return it to IMST or your local seller for a full refund.
+
+1. LIMITED LICENSE. IMST herewith grants to Licensee upon payment of the applicable product fee as set forth in the IMST Price List, the limited
+right and license to utilise the Software, on a non-exclusive and non-transferable single user license basis, for each bought or leased license. Licensee may copy the Software only for backup and archival purposes. Each such copy shall include in readable form all copyright notices contained on the original Software. Licensee may not alter, reproduce, translate, adapt, vary or modify the above-mentioned software.
+
+2. LIMITED WARRANTIES. IMST warrants that the Software will perform substantially in accordance with the accompanying written material for a period of 12 months from the date of receipt of the Software. In the case of a leasing contract, warranty period corresponds to the leasing period. Any implied warranties on the Software are limited to the period of six months. Software support, updates and maintenance are not included unless separately agreed upon in purchase order.
+
+3. DISCLAIMER OF WARRANTIES, LIMITATIONS OF LIABILITY. To the maximum extent permitted by applicable law, in no event IMST will be liable for any damages whatsoever, including without limitation any indirect, special or consequential damages such as loss of profits or inability to use the Software. In any case, IMST’s entire liability under any provision of this agreement shall be limited to the amount actually paid by Licensee for the Software.
+
+4. LICENSEES REMEDIES. IMST entire remedy shall be, at IMST’s option, either (a) return of the price paid, or (b) repair or replacement of the Software that does not meet this warranty. This warranty does not apply, if failure of the Software has resulted from abuse or misapplication. Any replacement Software will be warranted either not longer than the original warranty period or 30 days, whichever is longer.
+
+5. EXCLUSIVE PROPERTY. Licensee understands IMST’s statement that the Software is the exclusive and sole property of IMST. Licensee shall not acquire any ownership interest in the Software, but shall only have limited right to use the Software pursuant to this Agreement. Licensee acknowledges that the above mentioned Software may not be assigned, sub-licensed or otherwise transferred without the prior written consent of IMST, except to the successor to that part of licensee’s business to which this Agreement relates. Licensee understand IMST’s statement that any and all of the trade marks, copyrights, patents and other intellectual property rights in most widest sense in connection with the above mentioned software fully belong to IMST, unless otherwise written. None of the rights of Licensee under this Agreement are assignable or transferable without prior written consent of IMST.
+
+6. PROTECTION OF TRADE SECRETS. Licensee agrees to use all reasonable efforts to ensure that persons employed by Licensee abide by the terms and conditions of this Agreement.
+
+7. MAINTENANCE FEES. Licensee may order maintenance support while the Software is in use by the Licensee. IMST will quote maintenance fee for the Software and renew the appropriate code words yearly. Depending on purchase order, in some cases an initial 12 months software maintenance period is part of purchase order. 
+
+8. TERMINATION. IMST recognises two types of termination of License Agreement.
+(1) Discontinuance of policy. Should IMST, at any time discontinue their software policy, IMST will support Licensee through the current year. Licensee may continue use of the Software after that time. 
+(2) Breach of License Agreement. In the event of Breach of License Agreement, IMST shall have the right to terminate the Agreement by giving Licensee five days notice of such termination, if Licensee fails to initiate steps to correct such Breach within 30 days after written notice including specific facts of such Breach. In the event of Breach of Agreement, Licensee shall immediately return the Software to IMST at Licensee’s expense.
+
+9. ENTIRE AGREEMENT. This Agreement sets forth the entire agreement and understanding between the parties as to the subject matter of this Agreement and merges all prior discussions between them, and neither party shall be bound by any modification of this Agreement, or by any conditions, definitions, warranties, or representations with respect to the subject matter of this Agreement, other than as expressly provided in this Agreement, or as duly set forth on or subsequent to the data hereof in writing and signed by a duly authorised representative of the party to be bound thereby.
+
+10. GOVERNING LAW. This Agreement and matters connected with the performance thereof shall be construed, interpreted, applied and governed in all respects in accordance with the law of Germany. ATTORNEY’S FEES. In the event of any suit, action or other litigation involving this Agreement, the prevailing party shall be entitled to recover such party’s attorney’s fees and costs of litigation incurred in connection herewith.
+
+11. SURVIVAL. The provisions contained in Sections 5 and 6 hereof shall survive any termination of this Agreement.
+
+12. NOTICES. Any notice, request or statement thereunder shall be deemed to be sufficiently given or rendered to the other party, at the beginning of this Agreement or to such other address or persons such party gives notices. Licensee agrees to return a signed copy of this license to IMST.
+
+(c) 2013 IMST GmbH, All Rights Reserved

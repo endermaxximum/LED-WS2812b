@@ -1,0 +1,702 @@
+{
+    "FileVersion": "1.17",
+    "SupportedBands": [
+        {
+            "ID"            :   1,
+            "Title"         :   "EU 868 MHz",
+            "Key"           :   "EU868",
+            "Region"        :   "Europe",
+            "BandLimits"    :   "EU868-BandLimits"     
+        },
+        {
+            "ID"            :   2,
+            "Title"         :   "US 915 MHz",
+            "Key"           :   "US915",
+            "Region"        :   "United States of America"
+        },
+        {
+            "ID"            :   3,
+            "Title"         :   "IN 865 MHz",
+            "Key"           :   "IN865",
+            "Region"        :   "India"
+        },
+        {
+            "ID"            :   129,
+            "Title"         :   "EU 868 MHz (Rx2: SF9)",
+            "Key"           :   "EU868_RX2_SF9",
+            "Region"        :   "Europe",
+            "BandLimits"    :   "EU868-BandLimits"     
+        },
+        {
+            "ID"            :   131,
+            "Title"         :   "IN 865 MHz (Rx2: SF8)",
+            "Key"           :   "IN865_RX2_SF8",
+            "Region"        :   "India"
+        }
+    ],        
+    "EU868-BandLimits" : [
+        {
+            "ID"            :   0,
+            "Name"          :   "Sub-Band K",
+            "DutyCycle"     :   "0.1 %",
+            "TxPowerLimit"  :   "16 dBm",
+            "FrequencyMin"  :   "863.0 MHz",
+            "FrequencyMax"  :   "865.0 MHz"
+        },
+        {
+            "ID"            :   1,
+            "Name"          :   "Sub-Band L",
+            "DutyCycle"     :   "1 %",
+            "TxPowerLimit"  :   "16 dBm",
+            "FrequencyMin"  :   "865.0 MHz",
+            "FrequencyMax"  :   "868.0 MHz"
+        },
+        {
+            "ID"            :   2,
+            "Name"          :   "Sub-Band M",
+            "DutyCycle"     :   "1 %",
+            "TxPowerLimit"  :   "16 dBm",
+            "FrequencyMin"  :   "868.0 MHz",
+            "FrequencyMax"  :   "868.6 MHz"
+        },
+        {
+            "ID"            :   3,
+            "Name"          :   "Sub-Band N",
+            "DutyCycle"     :   "0.1 %",
+            "TxPowerLimit"  :   "16 dBm",
+            "FrequencyMin"  :   "868.7 MHz",
+            "FrequencyMax"  :   "869.2 MHz"
+        },
+        {
+            "ID"            :   4,
+            "Name"          :   "Sub-Band P",
+            "DutyCycle"     :   "10 %",
+            "TxPowerLimit"  :   "16 dBm",
+            "FrequencyMin"  :   "869.4 MHz",
+            "FrequencyMax"  :   "869.65 MHz"
+        },
+        {
+            "ID"            :   5,
+            "Name"          :   "Sub-Band R",
+            "DutyCycle"     :   "1 %",
+            "TxPowerLimit"  :   "16 dBm",
+            "FrequencyMin"  :   "869.7 MHz",
+            "FrequencyMax"  :   "870.0 MHz"
+        }
+    ],
+    "EU868": {
+        "EndNode": {
+            "DataRates": [
+                {
+                    "ID"        :   0,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF12",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "250 bps"
+                },
+                {
+                    "ID"        :   1,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF11",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "440 bps"
+                },
+                {
+                    "ID"        :   2,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF10",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "980 bps"
+                },
+                {
+                    "ID"        :   3,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF9",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "1760 bps"
+                },
+                {
+                    "ID"        :   4,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF8",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "3125 bps"
+                },
+                {
+                    "ID"        :   5,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "5470 bps"
+                },
+                {
+                    "ID"        :   6,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "250 kHz",
+                    "BitRate"   :   "11000 bps"
+                },
+                {
+                    "ID"        :   7,
+                    "Modulation":   "FSK",
+                    "DataRate"  :   "50k",
+                    "Bandwidth" :   "n.a.",
+                    "BitRate"   :   "50000 bps"
+                }
+            ],
+            "Frequencies": {
+                "UpLink": {
+                        "ID0":   "868100000 Hz",
+                        "ID1":   "868300000 Hz",
+                        "ID2":   "868500000 Hz"
+                },
+                "DownLink": {
+                        "ID0":   "868100000 Hz",
+                        "ID1":   "868300000 Hz",
+                        "ID2":   "868500000 Hz",
+                        "ID128":   "869525000 Hz"
+                }
+            }     
+        },        
+        "Server": {
+            "UpLinkPowerLevels": {
+                "ID0" : "20 dBm",
+                "ID1" : "14 dBm",
+                "ID2" : "11 dBm",
+                "ID3" : "8 dBm",
+                "ID4" : "5 dBm",
+                "ID5" : "2 dBm"
+            },
+            "DownLinkSlot2" : {
+                "Frequency" :  "869525000 Hz",
+                "Modulation":  "LoRa",
+                "DataRate"  :  "SF12",
+                "Bandwidth" :  "BW125"        
+            }            
+        }
+    },
+    "US915": {
+        "EndNode": {
+            "DataRates": {
+                "UpLink": [
+                    {
+                        "ID"        :   0,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF10",
+                        "Bandwidth" :   "125 kHz",
+                        "BitRate"   :   "980 bps"
+                    },
+                    {
+                        "ID"        :   1,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF9",
+                        "Bandwidth" :   "125 kHz",
+                        "BitRate"   :   "1760 bps"
+                    },
+                    {
+                        "ID"        :   2,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF8",
+                        "Bandwidth" :   "125 kHz",
+                        "BitRate"   :   "3125 bps"
+                    },
+                    {
+                        "ID"        :   3,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF7",
+                        "Bandwidth" :   "125 kHz",
+                        "BitRate"   :   "5470 bps"
+                    },
+                    {
+                        "ID"        :   4,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF8",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "12500 bps"
+                    }
+                ],
+                "DownLink": [
+                    {
+                        "ID"        :   8,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF12",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "980 bps"
+                    },
+                    {
+                        "ID"        :   9,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF11",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "1760 bps"
+                    },
+                    {
+                        "ID"        :   10,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF10",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "3900 bps"
+                    },
+                    {
+                        "ID"        :   11,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF9",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "7000 bps"
+                    },
+                    {
+                        "ID"        :   12,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF8",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "12500 bps"
+                    },
+                    {
+                        "ID"        :   13,
+                        "Modulation":   "LoRa",
+                        "DataRate"  :   "SF7",
+                        "Bandwidth" :   "500 kHz",
+                        "BitRate"   :   "21900 bps"
+                    }
+                ]
+            },
+            "Frequencies": {
+                "UpLink": {
+                        "ID0":   "902300000 Hz",
+                        "ID1":   "902500000 Hz",
+                        "ID2":   "902700000 Hz",
+                        "ID3":   "902900000 Hz",
+                        "ID4":   "903100000 Hz",
+                        "ID5":   "903300000 Hz",
+                        "ID6":   "903500000 Hz",
+                        "ID7":   "903700000 Hz",
+                        "ID8":   "903900000 Hz",
+                        "ID9":   "904100000 Hz",
+                        "ID10":  "904300000 Hz",
+                        "ID11":  "904500000 Hz",
+                        "ID12":  "904700000 Hz",
+                        "ID13":  "904900000 Hz",
+                        "ID14":  "905100000 Hz",
+                        "ID15":  "905300000 Hz",
+                        "ID16":  "905500000 Hz",
+                        "ID17":  "905700000 Hz",
+                        "ID18":  "905900000 Hz",
+                        "ID19":  "906100000 Hz",
+                        "ID20":  "906300000 Hz",
+                        "ID21":  "906500000 Hz",
+                        "ID22":  "906700000 Hz",
+                        "ID23":  "906900000 Hz",
+                        "ID24":  "907100000 Hz",
+                        "ID25":  "907300000 Hz",
+                        "ID26":  "907500000 Hz",
+                        "ID27":  "907700000 Hz",
+                        "ID28":  "907900000 Hz",
+                        "ID29":  "908100000 Hz",
+                        "ID30":  "908300000 Hz",
+                        "ID31":  "908500000 Hz",
+                        "ID32":  "908700000 Hz",
+                        "ID33":  "908900000 Hz",
+                        "ID34":  "909100000 Hz",
+                        "ID35":  "909300000 Hz",
+                        "ID36":  "909500000 Hz",
+                        "ID37":  "909700000 Hz",
+                        "ID38":  "909900000 Hz",
+                        "ID39":  "910100000 Hz",
+                        "ID40":  "910300000 Hz",
+                        "ID41":  "910500000 Hz",
+                        "ID42":  "910700000 Hz",
+                        "ID43":  "910900000 Hz",
+                        "ID44":  "911100000 Hz",
+                        "ID45":  "911300000 Hz",
+                        "ID46":  "911500000 Hz",
+                        "ID47":  "911700000 Hz",
+                        "ID48":  "911900000 Hz",
+                        "ID49":  "912100000 Hz",
+                        "ID50":  "912300000 Hz",
+                        "ID51":  "912500000 Hz",
+                        "ID52":  "912700000 Hz",
+                        "ID53":  "912900000 Hz",
+                        "ID54":  "913100000 Hz",
+                        "ID55":  "913300000 Hz",
+                        "ID56":  "913500000 Hz",
+                        "ID57":  "913700000 Hz",
+                        "ID58":  "913900000 Hz",
+                        "ID59":  "914100000 Hz",
+                        "ID60":  "914300000 Hz",
+                        "ID61":  "914500000 Hz",
+                        "ID62":  "914700000 Hz",
+                        "ID63":  "914900000 Hz",
+                        "ID64":  "903000000 Hz",
+                        "ID65":  "904600000 Hz",
+                        "ID66":  "906200000 Hz",
+                        "ID67":  "907800000 Hz",
+                        "ID68":  "909400000 Hz",
+                        "ID69":  "911000000 Hz",
+                        "ID70":  "912600000 Hz",
+                        "ID71":  "914200000 Hz"
+                },
+                "DownLink": {
+                        "ID0":   "923300000 Hz",
+                        "ID1":   "923900000 Hz",
+                        "ID2":   "924500000 Hz",
+                        "ID3":   "925100000 Hz",
+                        "ID4":   "925700000 Hz",
+                        "ID5":   "926300000 Hz",
+                        "ID6":   "926900000 Hz",
+                        "ID7":   "927500000 Hz",
+                        "ID64":   "923300000 Hz",
+                        "ID128":   "923300000 Hz"
+                }
+            },
+            "SubBands": {
+                "SubBandMask1" : {
+                        "Bit0" : "902.3-903.7 MHz / BW 125 kHz",
+                        "Bit1" : "903.9-905.3 MHz / BW 125 kHz",
+                        "Bit2" : "905.5-906.9 MHz / BW 125 kHz",
+                        "Bit3" : "907.1-908.5 MHz / BW 125 kHz",
+                        "Bit4" : "908.7-910.1 MHz / BW 125 kHz",
+                        "Bit5" : "910.3-911.7 MHz / BW 125 kHz",
+                        "Bit6" : "911.9-913.3 MHz / BW 125 kHz",
+                        "Bit7" : "913.5-914.9 MHz / BW 125 kHz"
+                },
+                "SubBandMask2" : {
+                        "Bit0" : "903.0 MHz / 500 kHz",
+                        "Bit1" : "904.6 MHz / 500 kHz",
+                        "Bit2" : "906.2 MHz / 500 kHz",
+                        "Bit3" : "907.8 MHz / 500 kHz",
+                        "Bit4" : "909.4 MHz / 500 kHz",
+                        "Bit5" : "911.0 MHz / 500 kHz",
+                        "Bit6" : "912.6 MHz / 500 kHz",
+                        "Bit7" : "914.2 MHz / 500 kHz"
+                }
+            }        
+        },        
+        "Server": {
+            "UpLinkPowerLevels": {
+                "ID0" : "30 dBm",
+                "ID1" : "28 dBm",
+                "ID2" : "26 dBm",
+                "ID3" : "24 dBm",
+                "ID4" : "22 dBm",
+                "ID5" : "20 dBm",
+                "ID6" : "18 dBm",
+                "ID7" : "16 dBm",
+                "ID8" : "14 dBm",
+                "ID9" : "12 dBm",
+                "ID10" : "10 dBm"
+            },
+            "DownLinkSlot1": {
+                "DataRateMapping": { 
+                    "SF10BW125" : "SF10BW500",
+                    "SF9BW125"  : "SF9BW500",
+                    "SF8BW125"  : "SF8BW500",
+                    "SF7BW125"  : "SF7BW500", 
+                    "SF8BW500"  : "SF7BW500" 
+                },
+                "FrequencyMapping": {
+                    "UpLink": {
+                        "902300000" : "DLID0",
+                        "902500000" : "DLID1",
+                        "902700000" : "DLID2",
+                        "902900000" : "DLID3",
+                        "903100000" : "DLID4",
+                        "903300000" : "DLID5",
+                        "903500000" : "DLID6",
+                        "903700000" : "DLID7",
+                        "903000000" : "DLID0"
+                    },
+                    "DownLink": {
+                        "DLID0": "923300000",
+                        "DLID1": "923900000",
+                        "DLID2": "924500000",
+                        "DLID3": "925100000",
+                        "DLID4": "925700000",
+                        "DLID5": "926300000",
+                        "DLID6": "926900000",
+                        "DLID7": "927500000"
+                    }
+                }
+            },
+            "DownLinkSlot2" : {
+                "Frequency" :  "923300000 Hz",
+                "Modulation":  "LoRa",
+                "DataRate"  :  "SF12",
+                "Bandwidth" :  "BW500"        
+            }            
+        }
+    },
+    "IN865": {
+        "EndNode": {
+            "DataRates": [
+                {
+                    "ID"        :   0,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF12",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "250 bps"
+                },
+                {
+                    "ID"        :   1,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF11",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "440 bps"
+                },
+                {
+                    "ID"        :   2,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF10",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "980 bps"
+                },
+                {
+                    "ID"        :   3,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF9",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "1760 bps"
+                },
+                {
+                    "ID"        :   4,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF8",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "3125 bps"
+                },
+                {
+                    "ID"        :   5,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "5470 bps"
+                },
+                {
+                    "ID"        :   6,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "250 kHz",
+                    "BitRate"   :   "11000 bps"
+                },
+                {
+                    "ID"        :   7,
+                    "Modulation":   "FSK",
+                    "DataRate"  :   "50k",
+                    "Bandwidth" :   "n.a.",
+                    "BitRate"   :   "50000 bps"
+                }
+            ],
+            "Frequencies": {
+                "UpLink": {
+                        "ID0":   "865062500 Hz",
+                        "ID1":   "865402500 Hz",
+                        "ID2":   "865985000 Hz"
+                },
+                "DownLink": {
+                        "ID0":   "865062500 Hz",
+                        "ID1":   "865402500 Hz",
+                        "ID2":   "865985000 Hz",
+                        "ID128":   "866550000 Hz"
+                }
+            }
+        },      
+        "Server": {
+            "UpLinkPowerLevels": {
+                "ID0" : "20 dBm",
+                "ID1" : "14 dBm",
+                "ID2" : "11 dBm",
+                "ID3" : "8 dBm",
+                "ID4" : "5 dBm",
+                "ID5" : "2 dBm"
+            },
+            "DownLinkSlot2" : {
+                "Frequency" :  "866550000 Hz",
+                "Modulation":  "LoRa",
+                "DataRate"  :  "SF10",
+                "Bandwidth" :  "BW125"        
+            }                
+        }        
+    },
+    "EU868_RX2_SF9": {
+        "EndNode": {
+            "DataRates": [
+                {
+                    "ID"        :   0,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF12",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "250 bps"
+                },
+                {
+                    "ID"        :   1,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF11",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "440 bps"
+                },
+                {
+                    "ID"        :   2,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF10",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "980 bps"
+                },
+                {
+                    "ID"        :   3,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF9",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "1760 bps"
+                },
+                {
+                    "ID"        :   4,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF8",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "3125 bps"
+                },
+                {
+                    "ID"        :   5,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "5470 bps"
+                },
+                {
+                    "ID"        :   6,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "250 kHz",
+                    "BitRate"   :   "11000 bps"
+                },
+                {
+                    "ID"        :   7,
+                    "Modulation":   "FSK",
+                    "DataRate"  :   "50k",
+                    "Bandwidth" :   "n.a.",
+                    "BitRate"   :   "50000 bps"
+                }
+            ],
+            "Frequencies": {
+                "UpLink": {
+                        "ID0":   "868100000 Hz",
+                        "ID1":   "868300000 Hz",
+                        "ID2":   "868500000 Hz"
+                },
+                "DownLink": {
+                        "ID0":   "868100000 Hz",
+                        "ID1":   "868300000 Hz",
+                        "ID2":   "868500000 Hz",
+                        "ID128":   "869525000 Hz"
+                }
+            }      
+        },        
+        "Server": {
+            "UpLinkPowerLevels": {
+                "ID0" : "20 dBm",
+                "ID1" : "14 dBm",
+                "ID2" : "11 dBm",
+                "ID3" : "8 dBm",
+                "ID4" : "5 dBm",
+                "ID5" : "2 dBm"
+            },
+            "DownLinkSlot2" : {
+                "Frequency" :  "869525000 Hz",
+                "Modulation":  "LoRa",
+                "DataRate"  :  "SF9",
+                "Bandwidth" :  "BW125"        
+            }            
+        }
+    },
+    "IN865_RX2_SF8": {
+        "EndNode": {
+            "DataRates": [
+                {
+                    "ID"        :   0,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF12",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "250 bps"
+                },
+                {
+                    "ID"        :   1,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF11",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "440 bps"
+                },
+                {
+                    "ID"        :   2,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF10",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "980 bps"
+                },
+                {
+                    "ID"        :   3,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF9",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "1760 bps"
+                },
+                {
+                    "ID"        :   4,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF8",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "3125 bps"
+                },
+                {
+                    "ID"        :   5,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "125 kHz",
+                    "BitRate"   :   "5470 bps"
+                },
+                {
+                    "ID"        :   6,
+                    "Modulation":   "LoRa",
+                    "DataRate"  :   "SF7",
+                    "Bandwidth" :   "250 kHz",
+                    "BitRate"   :   "11000 bps"
+                },
+                {
+                    "ID"        :   7,
+                    "Modulation":   "FSK",
+                    "DataRate"  :   "50k",
+                    "Bandwidth" :   "n.a.",
+                    "BitRate"   :   "50000 bps"
+                }
+            ],
+            "Frequencies": {
+                "UpLink": {
+                        "ID0":   "865062500 Hz",
+                        "ID1":   "865402500 Hz",
+                        "ID2":   "865985000 Hz"
+                },
+                "DownLink": {
+                        "ID0":   "865062500 Hz",
+                        "ID1":   "865402500 Hz",
+                        "ID2":   "865985000 Hz",
+                        "ID128":   "866550000 Hz"
+                }
+            }
+        },      
+        "Server": {
+            "UpLinkPowerLevels": {
+                "ID0" : "20 dBm",
+                "ID1" : "14 dBm",
+                "ID2" : "11 dBm",
+                "ID3" : "8 dBm",
+                "ID4" : "5 dBm",
+                "ID5" : "2 dBm"
+            },
+            "DownLinkSlot2" : {
+                "Frequency" :  "866550000 Hz",
+                "Modulation":  "LoRa",
+                "DataRate"  :  "SF8",
+                "Bandwidth" :  "BW125"        
+            }                
+        }        
+    }    
+}    
+ 

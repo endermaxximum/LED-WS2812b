@@ -1,0 +1,219 @@
+-------------------------------------------------
+   WiMOD LoRaWAN EndNode Studio ReleaseNotes.txt
+   2015 - 2018 IMST GmbH
+-------------------------------------------------
+
+
+.1 Content:
+----------------------------------------------------------------------------------------------------------
+This file contains an overview about the most important feature updates and bugfixes 
+----------------------------------------------------------------------------------------------------------
+
+.2 Supported Radio Hardware
+--------------------------------------------------------------------------
+- iM880A-L Module , iU880A-USB Stick  
+- iM880B   Module , iU880B-USB Stick  
+- iM881A   Module , iU881A-USB Stick  
+
+.3 Supported PC Operating Systems
+--------------------------------------------------------------------------
+- Windows: XP, Windows 7, Windows 8
+- Mac OS X: Mavericks, Yosemite (on demand)
+
+.4 Recommended Firmware 
+--------------------------------------------------------------------------
+- WiMOD_LoRaWAN_EndNode_Modem_EU868_iM880B_V2_0.hex
+- WiMOD_LoRaWAN_EndNode_Modem_EU868_iU880B_V2_0.hex
+- WiMOD_LoRaWAN_EndNode_Modem_EU868_iM881A_V2_0.hex
+
+.5 Revision History:
+--------------------------------------------------------------------------
+29.01.2017 - 0.42.0
+    - Initial support for variable LoRaWAN Config files added
+    - LoRaWAN Configuration: Duty Cycle configuration limited to firmware Customer Mode
+    - Factory Settings: renamed to Customer Settings
+    - Customer Settings: 
+        - configuration for Link ADR Request Handling addded
+        - TxPower Limit configuration available or European bands
+    - Support for Firmware Name Variants "_Beta", "_Test" added
+    - New Error Code "RX_ACK_ERROR" in case "No Valid Data" added
+    - LoRaWAN Config fileformat: new section BandLimits added
+
+29.11.2017 - 0.41.0
+    - Configuration for Header MAC Command Capacity added
+        
+22.11.2017 - 0.40.0
+    - Support for iU980A-L added
+    
+17.11.2017 - 0.39.0
+    - Confiuration for TxPower Limits added
+
+10.11.2017 - Release V0.38.0
+    - Initial Support for Multicast Configuration added
+
+25.08.2017 - Release V0.37.0
+    - Handling of Tx Power Settings changed to EIRP 
+    - Radioband Support changed: configurable bands are now defined by
+      connected Radio Module Bands & possible Studio Radio Bands  
+    - Firmware Compatibility Check extended by BuildCount comparisson  
+    
+11.08.2017 - Release V0.36.1
+    - RF Gain Range changed : -6 dB to +6 dB
+    
+14.07.2017 - Release V0.36.0
+    - Radio Payload Field increased to max. 242 bytes
+    - BugFix in json config file version handling
+    - Support for upcoming iM980A-L added
+    - Radio Message Payload handling in Tableview changed
+    - Tableview: show/hide + movable columns added
+    
+23.03.2017 - Release V0.35.0
+    - Tx Indication format changed for firmware V2.0
+    
+16.02.2017 - Release V0.34.0
+    - Initial Support for Extended LoRaWAN Firmware with Dual Radio Stack Feature
+      (LoRaWAN + LR Base)
+      
+28.11.2016 - Release V0.33.0
+    - BugFix for Device Information in Device Tree
+    - Support for US915 Band
+    - Downlink Slot #1 + #2 Frequency + Datarate Mapping introduced
+    - new JSON configuration file format!!!
+    - Timer Management changed
+    - Tx-Counter output in Status-Box removed for Tx-U-Data Indication
+    - Operation Modes re-defined
+    
+    
+08.11.2016 - Release V0.32.0
+    - BugFix for Automatic PageRefresh
+    
+02.09.2016 - Release V0.31.0
+    - New configurable settings:
+        - Dynamic Feature Control
+        - Automatic Page Refresh
+        - ISO Format
+        - Firmware Compatibility Check
+
+24.08.2016 - Release V0.30.0
+    - Reactivate Device service added
+    
+07.07.2016 - Release V0.29.1
+    - New Device Discovery after Firmware Update
+
+30.06.2016 - Release V0.29.0
+    - HCI Logging Table with two different Message Formats
+      - SLIP encoded messages
+      - decoded HCI Messages
+    
+24.06.2016 - Release V0.28.0
+    - Tx Join Event Counter added to table information 
+    - Now Neetwork Status "Joining OTAA" added
+    - RTC Alarm feature added
+    - Table logging feature moved to table widget (log file name changed)
+    - HCI Message table (with logging support) added 
+    - HCI Test Command feature added
+    - Show Firmware Feature Overview menu item added
+    - Internal SAP interface handling changed
+    - Internal asynchronous HCI event handling changed
+    
+02.06.2016 - Release V0.27.6
+    - BugFix: Stored TxData payload gets cleared on any Rx-Data event to avoid 
+              obfuscating payload display on Tx-Data events which have not been 
+              initiated by this Studio itself.
+
+31.05.2016 - Release V0.27.5
+    - Customer specific Tx Power Offset configuration added
+    - Configuration Option for Extended HCI Output
+    - New EU 868MHz Band (ID = 129, Rx2=SF9 instead of SF12) added
+    - Readout of application registration data removed
+    - Minor bug fixes    
+    
+02.05.2016 - Release V0.27.4
+    - firmware update: unknwon device handling updated
+
+08.03.2016 - Release V0.27.3
+    - New Serial Port Handling
+
+04.03.2016 - Release V0.27.2
+    - New Page Handling with auto-update
+
+29.02.2016 - Release V0.27.1
+    - Bugfix for HCI Logging after Firmware update
+    - internal cleanup for table handling 
+    
+25.02.2016 - Release V0.27.0
+    - Multiband Support added (new) 
+    - Bootloader Support for iM881A / iU881A added
+    
+12.02.2016 - Release V0.26.0
+    - Support for iM880B / iU880B added
+    - Firmware Update Support for iM880B / iU880B added
+    - Firmware Update for old firmware in iM880 modules changed - no more FTDI CBUS access
+    - ReleaseNote Viewer added
+    - GUI Engine updated 
+    
+25.01.2016 - Release V0.25.6
+    - BugFix: Wakeup-Char set to 0xC0 
+    - HCI Timeout uncreased from 500ms to 1000ms
+    - Support for Device Status readout added
+    - Support for configurable radio packet retransmissions added
+    - Support for user defined VID_PIDs (virtual comport drivers) and 
+      standard COM ports added via INI_FILE (see examples below):
+      a) add the following line to your INI_FILE if you need support for a specific USB-Virtual-Comport driver, e.g.: SiLabs, STLink  
+        ...
+       [ComPorts]
+       Used=...
+       VID_PIDS="VID_10C4.PID_EA60", "VID_0483.PID_374B.*"
+       ....
+       
+      b) add the following line to your INI_FILE if you need connection support via standard COM Ports, e.g.: COM55, COM66, COM77 
+        ...
+       [ComPorts]
+       Used=...
+       Extra=COM55, COM66, COM77
+       ...
+
+07.12.2015 - Release V0.25.5
+    - Set Device activation Params Error Handling fixed
+
+26.11.2015 - Release V0.25.4
+    - Message payload limit in user-input field increased to 128 bytes
+    - new error code: channel blocked ... added
+
+20.11.2015 - Release V0.25.3
+    - fix for periodic Tx-Timer handling
+
+06.11.2015 - Release V0.25.2
+    - periodically uplink data service added
+    
+29.10.2015 - Release V0.25.1
+    - new Softwate Update option via new Bootloader HCI command if LR_Base or LoRaWAN firmware is >= 1.11
+
+08.10.2015 - Release V0.25.0
+    - MAC commands Support added
+    - Bugfix in Softwate Update handling
+
+15.09.2015 - Release V0.24.2
+    - Frame Pending Bit Visualization added
+    - new Documents folder added for User Guide + HCI-Spec + Feature-Spec
+
+24.06.2015 - Release V0.24.1
+    - minor bugfixes
+    
+23.06.2015 - Release V0.23.1
+    - Support for Firmware Update added
+    - Compatibility Warning for wrong firmware type added
+    
+02.06.2015 - Release V0.22.0
+    - Configuration for Class-C Device and DutyCycle Management added
+
+02.05.2015 - Release V0.21.1
+    - Inital Version, derived from WiMOD ExpLoRa Studio
+    - FSK Support added
+    - Compatibility Warning for wrong firmware version added
+    
+.6 Known Limitations
+----------------------------------------------------------------------------------------------------------
+- none
+
+
