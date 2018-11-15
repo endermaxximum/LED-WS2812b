@@ -1,0 +1,19 @@
+body{
+	background:skyblue;
+}
+table{
+  width:3500px;
+  margin:auto;
+  margin-top:100;
+  table-layout: fixed;
+}
+table, th, td {
+    color:#fff;
+    border-collapse:collapse;
+    border:1px dotted white;
+    text-align:center;
+    font-family:Lucida Console;
+
+}
+tr:nth-child(even){background-color:#181b2f}
+tr:nth-child(odd){background-color:#000 }

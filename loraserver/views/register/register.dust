@@ -1,0 +1,22 @@
+{>"layout" /}
+
+<head>
+		<meta charset="utf-8">
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<div class="box">
+			<h2>Register GateWays HERE</h2>
+			<form>
+				<div class="inputBOX">
+					<input type="text" name="" required="">
+					<label>Name Your GateWays</label>
+				</div>
+				<div class="inputBOX">
+					<input type="EUI" name="" required="">
+					<label>GateWays EUI</label>
+				</div>
+				<input type="Submit" name="" value="Submit">
+			</form>
+		</div>
+	</body>

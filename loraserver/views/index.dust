@@ -1,0 +1,48 @@
+{>"layout" /}
+
+{<body}
+		 
+	<div style ="overflow-x:auto;">
+		<table>
+			<tr>
+				<th><h3> RxDATA_ID<h3></th>
+				<th><h3> ENDPOINT_ID<h3></th>
+				<th><h3> RECEIVED_TIME<h3></th>
+				<th><h3> SEQUENCE_NUMBER<h3></th>
+				<th><h3> PORT<h3></th>
+				<th><h3> RADIO_ID<h3></th>
+				<th><h3> CHANNEL<h3></th>
+				<th><h3> SNR_DB<h3></th>
+				<th><h3> RSSI_DBM<h3></th>
+				<th><h3> FREQUENCY_Hz<h3></th>
+				<th><h3> MODULATION_TYPE<h3></th>
+				<th><h3> DATA_RATE<h3></th>
+				<th><h3> CODING_RATE<h3></th>
+				<th><h3> ADR<h3></th>
+				<th><h3> PAYLOAD<h3></th>
+			</tr>
+			<tr>
+				 {#loradata}
+				 <th>{rxdata_id}</th> 
+				 <th>{endpoint_id}</th>
+				 <th>{received_time}</th>
+				 <th>{sequence_number}</th>
+				 <th>{port}</th>
+				 <th>{radio_id}</th>
+				 <th>{channel}</th>
+				 <th>{snr_db}</th>
+				 <th>{rssi_dbm}</th>
+				 <th>{frequency_hz}</th>
+				 <th>{modulation_type}</th>
+				 <th>{data_rate}</th>
+				 <th>{coding_rate}</th>
+				 <th>{adr}</th>
+				 <th>{payload}</th>
+			</tr>
+			{/loradata}
+			</div>
+
+
+				
+	
+{/body}
