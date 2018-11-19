@@ -1,0 +1,14 @@
+Added Component: Designator=J1(Antenna)
+Added Pin To Net: NetName=NetJ1_1 Pin=J1-1
+Added Pin To Net: NetName=GND Pin=J1-2
+Added Pin To Net: NetName=GND Pin=J1-3
+Change Net Name : Old Net Name=NetP1_1 New Net Name=NetP4_1
+Change Net Name : Old Net Name=NetP1_4 New Net Name=NetPK1_4
+Change Net Name : Old Net Name=NetP1_5 New Net Name=NetPK1_5
+Change Net Name : Old Net Name=NetP8_2 New Net Name=NetU6_42
+Change Net Name : Old Net Name=NetP8_3 New Net Name=NetU6_43
+Change Net Name : Old Net Name=NetP9_1 New Net Name=NetPK_1
+Change Net Name : Old Net Name=NetP9_4 New Net Name=NetPK_4
+Change Net Name : Old Net Name=NetP9_5 New Net Name=NetPK_5
+Added Member To Class: ClassName=Sheet1 Member=Component J1 Antenna
+Added Room: Name=Sheet1

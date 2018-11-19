@@ -1,0 +1,4 @@
+Added Component: Designator=BZ?(Buzzer)
+Added Pin To Net: NetName=VCC Pin=BZ?-1
+Added Pin To Net: NetName=NetBZ?_2 Pin=BZ?-2
+Added Member To Class: ClassName=MCU Member=Component BZ? GT-0950RP3

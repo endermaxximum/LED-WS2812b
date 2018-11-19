@@ -1,0 +1,935 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-16">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script></head>
+<body onload=""><img ALT="Altium" src="
+			file://D:\ALTIUM DESIGNER WINTER 09\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">6/21/2018</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">4:17:05 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc" class="file"><acronym title="D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc">D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">3</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">169</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDWBHYXVHLUNUNGHP43S4LHIGVMFQUED4T5MAOOTOY4JBTXE335MCH"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDFQTI22LE20JYDZUVRJZEC3BNLOWTCYGZFI5AKYDVMVSSDFFGV31P">Multilayer Pads with 0 size Hole found</a></td>
+<td class="column2">3</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">3</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIJUBQKPTZGFQDZZBKCKUCXGRVKZVZGZR15DWLJQYPOEVEGVLMX">Room POWER (Bounding Region = (0mil, 0mil, 2000mil, 1000mil) (InComponentClass('POWER'))</a></td>
+<td class="column2">14</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDHBJ13I21PL30DDT3VZH3JRBM4OEUL2ZT2ECOOQFKCVFCVHYORKKG">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDG1XGUKZJIBN5GBT5241KTQUA0BTGW2RUN0QWXRB3U1ZKCLYTKPGO">Silk to Silk (Clearance=10mil) (All),(All)</a></td>
+<td class="column2">8</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMMOCWR0BJ1TCJDIBPZBQDVUYKCBPP5CCRC2SKFDMPBQI4EY5IQBE">Silkscreen Over Component Pads (Clearance=2mil) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAYXRLJ345W00BFUJU4XHCGX15N4ON2TSA3YKLUGVSHQTVVIP3FTI">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDBIRHWYGVDHASHAXPXKQIZBSMTHDQQDUCBS3Y55IKYAA3TQ1XGVIB">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDTWMZF1Q34PX5O0SLUXBLHC312DF5FG30PXOTBTKXVO1P0SXG0FMD">Hole Size Constraint (Min=1mil) (Max=200mil) (All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2FKJBSXCQTOXGMKQ23VSBXL5XNWHZTRPPAKUSZC4SLLTTKAC5KXP">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDG25BI23OXVPEI51VE5DBPGWW0GGIKNCQ32DEA2KDBXCSR0YVSLDP">Width Constraint (Min=10mil) (Max=10mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID3RABGDLF3ICPCOA4Z5GPSSYSOH1ODPCV211NCDEEU2J3EJPFB40E">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDO5D5LJPREU0GPEF14G43HUWQ3H1BZS2PZB3M3MEQ5J5ZH53NG1PP">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">11</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXJSV24Z0JBY3CVICKGOEC4QK2C43HAOIREPQYNNF234O0A1NYDXF">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">108</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFBR5EB3K0HAWC2H2EPD0KFXTUEZ1VIHH0DWO3LOBP14ERLBUI5VL">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">169</td>
+</tr>
+</table><br><hr><a name="IDKDRIRJ1ICIFJP03RDWGKAMDZGDGBUSHEOHLUFBJXXH4D2LZHL30N"><h2>Warnings</h2></a><a name="IDFQTI22LE20JYDZUVRJZEC3BNLOWTCYGZFI5AKYDVMVSSDFFGV31P"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="warning">Multilayer Pads with 0 size Hole found</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True">Pad J1-1(22279.37mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-2(22035.276mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True">Pad J1-3(22153.386mil,14283.15mil)  Multi-Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><hr><a name="IDIJUBQKPTZGFQDZZBKCKUCXGRVKZVZGZR15DWLJQYPOEVEGVLMX"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room POWER (Bounding Region = (0mil, 0mil, 2000mil, 1000mil) (InComponentClass('POWER'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=24407.953mil|Location1.Y=0mil|Location2.Y=17732.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=24407.953mil|Location1.Y=0mil|Location2.Y=17732.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22216.451mil|Location1.Y=0mil|Location2.Y=18006.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22216.451mil|Location1.Y=0mil|Location2.Y=18006.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22206.468mil|Location1.Y=0mil|Location2.Y=17713.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22206.468mil|Location1.Y=0mil|Location2.Y=17713.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22020.468mil|Location1.Y=0mil|Location2.Y=17810.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22020.468mil|Location1.Y=0mil|Location2.Y=17810.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22020.468mil|Location1.Y=0mil|Location2.Y=17610.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22020.468mil|Location1.Y=0mil|Location2.Y=17610.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22354.608mil|Location1.Y=0mil|Location2.Y=14850.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22354.608mil|Location1.Y=0mil|Location2.Y=14850.981mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22898.958mil|Location1.Y=0mil|Location2.Y=15527.981mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22898.958mil|Location1.Y=0mil|Location2.Y=15527.981mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22930.451mil|Location1.Y=0mil|Location2.Y=17209.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22930.451mil|Location1.Y=0mil|Location2.Y=17209.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=26445.468mil|Location1.Y=0mil|Location2.Y=18219.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=26445.468mil|Location1.Y=0mil|Location2.Y=18219.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=23688.898mil|Location1.Y=0mil|Location2.Y=18095.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=23688.898mil|Location1.Y=0mil|Location2.Y=18095.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=23448.898mil|Location1.Y=0mil|Location2.Y=18115.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=23448.898mil|Location1.Y=0mil|Location2.Y=18115.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=23258.898mil|Location1.Y=0mil|Location2.Y=18115.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=23258.898mil|Location1.Y=0mil|Location2.Y=18115.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22845.416mil|Location1.Y=0mil|Location2.Y=17743.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=22845.416mil|Location1.Y=0mil|Location2.Y=17743.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=25485.416mil|Location1.Y=0mil|Location2.Y=17503.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=25485.416mil|Location1.Y=0mil|Location2.Y=17503.481mil|Absolute=True">Room Definition Between Component on TopLayer And Rule on TopLayer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDG1XGUKZJIBN5GBT5241KTQUA0BTGW2RUN0QWXRB3U1ZKCLYTKPGO"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk to Silk (Clearance=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.5mil|Location2.X=22206.468mil|Location1.Y=17633.5mil|Location2.Y=17713.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.5mil|Location2.X=22206.468mil|Location1.Y=17633.5mil|Location2.Y=17713.481mil|Absolute=True">Text "P3" (22096.5mil,17643.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22046.063mil|Location2.X=22113.937mil|Location1.Y=17621.063mil|Location2.Y=17628.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22046.063mil|Location2.X=22113.937mil|Location1.Y=17621.063mil|Location2.Y=17628.937mil|Absolute=True">Track (22050mil,17625mil)(22110mil,17625mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.5mil|Location2.X=22206.468mil|Location1.Y=17633.5mil|Location2.Y=17713.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.5mil|Location2.X=22206.468mil|Location1.Y=17633.5mil|Location2.Y=17713.481mil|Absolute=True">Text "P3" (22096.5mil,17643.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22106.063mil|Location2.X=22113.937mil|Location1.Y=17621.063mil|Location2.Y=17828.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22106.063mil|Location2.X=22113.937mil|Location1.Y=17621.063mil|Location2.Y=17828.937mil|Absolute=True">Track (22110mil,17625mil)(22110mil,17825mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True">Text "J2" (21910.5mil,17540.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.945mil|Location2.X=21908.819mil|Location1.Y=17560.945mil|Location2.Y=17679.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.945mil|Location2.X=21908.819mil|Location1.Y=17560.945mil|Location2.Y=17679.055mil|Absolute=True">Track (21904.882mil,17564.882mil)(21904.882mil,17675.118mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True">Text "J2" (21910.5mil,17540.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.945mil|Location2.X=22019.055mil|Location1.Y=17560.945mil|Location2.Y=17568.819mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.945mil|Location2.X=22019.055mil|Location1.Y=17560.945mil|Location2.Y=17568.819mil|Absolute=True">Track (21904.882mil,17564.882mil)(22015.118mil,17564.882mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True">Text "J2" (21910.5mil,17540.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22011.181mil|Location2.X=22019.055mil|Location1.Y=17560.945mil|Location2.Y=17679.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22011.181mil|Location2.X=22019.055mil|Location1.Y=17560.945mil|Location2.Y=17679.055mil|Absolute=True">Track (22015.118mil,17564.882mil)(22015.118mil,17675.118mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26296.5mil|Location2.X=26416.468mil|Location1.Y=15750.5mil|Location2.Y=15830.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26296.5mil|Location2.X=26416.468mil|Location1.Y=15750.5mil|Location2.Y=15830.481mil|Absolute=True">Text "D4" (26306.5mil,15760.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26306.732mil|Location2.X=26314.606mil|Location1.Y=15829.134mil|Location2.Y=15970.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26306.732mil|Location2.X=26314.606mil|Location1.Y=15829.134mil|Location2.Y=15970.866mil|Absolute=True">Track (26310.669mil,15833.071mil)(26310.669mil,15966.929mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26296.5mil|Location2.X=26416.468mil|Location1.Y=15750.5mil|Location2.Y=15830.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26296.5mil|Location2.X=26416.468mil|Location1.Y=15750.5mil|Location2.Y=15830.481mil|Absolute=True">Text "D4" (26306.5mil,15760.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26306.732mil|Location2.X=26389.409mil|Location1.Y=15829.134mil|Location2.Y=15837.008mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26306.732mil|Location2.X=26389.409mil|Location1.Y=15829.134mil|Location2.Y=15837.008mil|Absolute=True">Track (26310.669mil,15833.071mil)(26385.472mil,15833.071mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.5mil|Location2.X=22206.468mil|Location1.Y=17633.5mil|Location2.Y=17713.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.5mil|Location2.X=22206.468mil|Location1.Y=17633.5mil|Location2.Y=17713.481mil|Absolute=True">Text "P3" (22096.5mil,17643.5mil)  Top Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22176.5mil|Location2.X=22296.468mil|Location1.Y=17663.5mil|Location2.Y=17743.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22176.5mil|Location2.X=22296.468mil|Location1.Y=17663.5mil|Location2.Y=17743.481mil|Absolute=True">Text "C3" (22186.5mil,17673.5mil)  Top Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDMMOCWR0BJ1TCJDIBPZBQDVUYKCBPP5CCRC2SKFDMPBQI4EY5IQBE"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silkscreen Over Component Pads (Clearance=2mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22048.441mil|Location2.X=22111.559mil|Location1.Y=17543.441mil|Location2.Y=17606.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22048.441mil|Location2.X=22111.559mil|Location1.Y=17543.441mil|Location2.Y=17606.559mil|Absolute=True">Pad R13-1(22080mil,17575mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.063mil|Location2.X=22093.937mil|Location1.Y=17006.063mil|Location2.Y=17613.937mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22086.063mil|Location2.X=22093.937mil|Location1.Y=17006.063mil|Location2.Y=17613.937mil|Absolute=True">Track (22090mil,17010mil)(22090mil,17610mil)  Top Overlay</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21926.472mil|Location2.X=21993.528mil|Location1.Y=17586.472mil|Location2.Y=17653.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21926.472mil|Location2.X=21993.528mil|Location1.Y=17586.472mil|Location2.Y=17653.528mil|Absolute=True">Pad J3-1(21960mil,17620mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21900.5mil|Location2.X=22020.468mil|Location1.Y=17530.5mil|Location2.Y=17610.481mil|Absolute=True">Text "J2" (21910.5mil,17540.5mil)  Top Overlay</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDAYXRLJ345W00BFUJU4XHCGX15N4ON2TSA3YKLUGVSHQTVVIP3FTI"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=16423.874mil|Location2.Y=16471.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=16423.874mil|Location2.Y=16471.244mil|Absolute=True">Pad R10-2(26235mil,16447.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=16368.756mil|Location2.Y=16416.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=16368.756mil|Location2.Y=16416.126mil|Absolute=True">Pad R10-1(26235mil,16392.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21465.252mil|Location2.X=21504.748mil|Location1.Y=16668.756mil|Location2.Y=16716.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21465.252mil|Location2.X=21504.748mil|Location1.Y=16668.756mil|Location2.Y=16716.126mil|Absolute=True">Pad R12-1(21485mil,16692.441mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21465.252mil|Location2.X=21504.748mil|Location1.Y=16723.874mil|Location2.Y=16771.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21465.252mil|Location2.X=21504.748mil|Location1.Y=16723.874mil|Location2.Y=16771.244mil|Absolute=True">Pad R12-2(21485mil,16747.559mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=15663.874mil|Location2.Y=15711.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=15663.874mil|Location2.Y=15711.244mil|Absolute=True">Pad R6-2(26235mil,15687.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=15608.756mil|Location2.Y=15656.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215.252mil|Location2.X=26254.748mil|Location1.Y=15608.756mil|Location2.Y=15656.126mil|Absolute=True">Pad R6-1(26235mil,15632.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=14883.874mil|Location2.Y=14931.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=14883.874mil|Location2.Y=14931.244mil|Absolute=True">Pad R3-2(26215mil,14907.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=14828.756mil|Location2.Y=14876.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=14828.756mil|Location2.Y=14876.126mil|Absolute=True">Pad R3-1(26215mil,14852.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15143.874mil|Location2.Y=15191.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15143.874mil|Location2.Y=15191.244mil|Absolute=True">Pad R4-2(26215mil,15167.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15088.756mil|Location2.Y=15136.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15088.756mil|Location2.Y=15136.126mil|Absolute=True">Pad R4-1(26215mil,15112.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=16163.874mil|Location2.Y=16211.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=16163.874mil|Location2.Y=16211.244mil|Absolute=True">Pad R8-2(26215mil,16187.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=16108.756mil|Location2.Y=16156.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=16108.756mil|Location2.Y=16156.126mil|Absolute=True">Pad R8-1(26215mil,16132.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26205.252mil|Location2.X=26244.748mil|Location1.Y=15858.756mil|Location2.Y=15906.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26205.252mil|Location2.X=26244.748mil|Location1.Y=15858.756mil|Location2.Y=15906.126mil|Absolute=True">Pad R7-2(26225mil,15882.441mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26205.252mil|Location2.X=26244.748mil|Location1.Y=15913.874mil|Location2.Y=15961.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26205.252mil|Location2.X=26244.748mil|Location1.Y=15913.874mil|Location2.Y=15961.244mil|Absolute=True">Pad R7-1(26225mil,15937.559mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15423.874mil|Location2.Y=15471.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15423.874mil|Location2.Y=15471.244mil|Absolute=True">Pad R5-2(26215mil,15447.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15368.756mil|Location2.Y=15416.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26195.252mil|Location2.X=26234.748mil|Location1.Y=15368.756mil|Location2.Y=15416.126mil|Absolute=True">Pad R5-1(26215mil,15392.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26200.252mil|Location2.X=26239.748mil|Location1.Y=16683.874mil|Location2.Y=16731.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26200.252mil|Location2.X=26239.748mil|Location1.Y=16683.874mil|Location2.Y=16731.244mil|Absolute=True">Pad R11-2(26220mil,16707.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26200.252mil|Location2.X=26239.748mil|Location1.Y=16628.756mil|Location2.Y=16676.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26200.252mil|Location2.X=26239.748mil|Location1.Y=16628.756mil|Location2.Y=16676.126mil|Absolute=True">Pad R11-1(26220mil,16652.441mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25888.874mil|Location2.X=25936.244mil|Location1.Y=14500.252mil|Location2.Y=14539.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25888.874mil|Location2.X=25936.244mil|Location1.Y=14500.252mil|Location2.Y=14539.748mil|Absolute=True">Pad R2-2(25912.559mil,14520mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25833.756mil|Location2.X=25881.126mil|Location1.Y=14500.252mil|Location2.Y=14539.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25833.756mil|Location2.X=25881.126mil|Location1.Y=14500.252mil|Location2.Y=14539.748mil|Absolute=True">Pad R2-1(25857.441mil,14520mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25508.874mil|Location2.X=25556.244mil|Location1.Y=14680.252mil|Location2.Y=14719.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25508.874mil|Location2.X=25556.244mil|Location1.Y=14680.252mil|Location2.Y=14719.748mil|Absolute=True">Pad R9-2(25532.559mil,14700mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25453.756mil|Location2.X=25501.126mil|Location1.Y=14680.252mil|Location2.Y=14719.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25453.756mil|Location2.X=25501.126mil|Location1.Y=14680.252mil|Location2.Y=14719.748mil|Absolute=True">Pad R9-1(25477.441mil,14700mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23568.756mil|Location2.X=23616.126mil|Location1.Y=17942.221mil|Location2.Y=17977.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23568.756mil|Location2.X=23616.126mil|Location1.Y=17942.221mil|Location2.Y=17977.78mil|Absolute=True">Pad C6-1(23592.441mil,17960mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23623.874mil|Location2.X=23671.244mil|Location1.Y=17942.221mil|Location2.Y=17977.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23623.874mil|Location2.X=23671.244mil|Location1.Y=17942.221mil|Location2.Y=17977.78mil|Absolute=True">Pad C6-2(23647.559mil,17960mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22166.197mil|Location2.X=22245.063mil|Location1.Y=16404.189mil|Location2.Y=16435.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22166.197mil|Location2.X=22245.063mil|Location1.Y=16404.189mil|Location2.Y=16435.811mil|Absolute=True">Pad Q1-3(22205.63mil,16420mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22244.937mil|Location2.X=22323.803mil|Location1.Y=16366.787mil|Location2.Y=16398.409mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22244.937mil|Location2.X=22323.803mil|Location1.Y=16366.787mil|Location2.Y=16398.409mil|Absolute=True">Pad Q1-1(22284.37mil,16382.598mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22166.197mil|Location2.X=22245.063mil|Location1.Y=16404.189mil|Location2.Y=16435.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22166.197mil|Location2.X=22245.063mil|Location1.Y=16404.189mil|Location2.Y=16435.811mil|Absolute=True">Pad Q1-3(22205.63mil,16420mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22244.937mil|Location2.X=22323.803mil|Location1.Y=16441.59mil|Location2.Y=16473.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22244.937mil|Location2.X=22323.803mil|Location1.Y=16441.59mil|Location2.Y=16473.213mil|Absolute=True">Pad Q1-2(22284.37mil,16457.401mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23328.756mil|Location2.X=23376.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23328.756mil|Location2.X=23376.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C5-1(23352.441mil,17980mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23383.874mil|Location2.X=23431.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23383.874mil|Location2.X=23431.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C5-2(23407.559mil,17980mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23138.756mil|Location2.X=23186.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23138.756mil|Location2.X=23186.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C4-1(23162.441mil,17980mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23193.874mil|Location2.X=23241.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23193.874mil|Location2.X=23241.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C4-2(23217.559mil,17980mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26622.221mil|Location2.X=26657.78mil|Location1.Y=15303.874mil|Location2.Y=15351.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26622.221mil|Location2.X=26657.78mil|Location1.Y=15303.874mil|Location2.Y=15351.244mil|Absolute=True">Pad C1-1(26640mil,15327.559mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26622.221mil|Location2.X=26657.78mil|Location1.Y=15248.756mil|Location2.Y=15296.126mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26622.221mil|Location2.X=26657.78mil|Location1.Y=15248.756mil|Location2.Y=15296.126mil|Absolute=True">Pad C1-2(26640mil,15272.441mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDTWMZF1Q34PX5O0SLUXBLHC312DF5FG30PXOTBTKXVO1P0SXG0FMD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Hole Size Constraint (Min=1mil) (Max=200mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True">Hole Size Constraint: Pad J1-1(22279.37mil,14480mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True">Hole Size Constraint: Pad J1-2(22035.276mil,14480mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True">Hole Size Constraint: Pad J1-3(22153.386mil,14283.15mil)  Multi-Layer</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDO5D5LJPREU0GPEF14G43HUWQ3H1BZS2PZB3M3MEQ5J5ZH53NG1PP"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True">Track (21850mil,17990mil)(23989.112mil,17994.278mil)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23383.874mil|Location2.X=23431.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23383.874mil|Location2.X=23431.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C5-2(23407.559mil,17980mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True">Track (21850mil,17990mil)(23989.112mil,17994.278mil)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23328.756mil|Location2.X=23376.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23328.756mil|Location2.X=23376.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C5-1(23352.441mil,17980mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True">Track (21850mil,17990mil)(23989.112mil,17994.278mil)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23193.874mil|Location2.X=23241.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23193.874mil|Location2.X=23241.244mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C4-2(23217.559mil,17980mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21845mil|Location2.X=23994.112mil|Location1.Y=17985mil|Location2.Y=17999.278mil|Absolute=True">Track (21850mil,17990mil)(23989.112mil,17994.278mil)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23138.756mil|Location2.X=23186.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23138.756mil|Location2.X=23186.126mil|Location1.Y=17962.221mil|Location2.Y=17997.78mil|Absolute=True">Pad C4-1(23162.441mil,17980mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14495.685mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14495.685mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-1B(22279.37mil,14529.213mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True">Pad J1-1(22279.37mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14397.26mil|Location2.Y=14464.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14397.26mil|Location2.Y=14464.315mil|Absolute=True">Pad J1-1A(22279.37mil,14430.787mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True">Pad J1-1(22279.37mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14407.102mil|Location2.Y=14474.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14407.102mil|Location2.Y=14474.157mil|Absolute=True">Pad J1-2A(22035.276mil,14440.63mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-2(22035.276mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14485.843mil|Location2.Y=14552.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14485.843mil|Location2.Y=14552.898mil|Absolute=True">Pad J1-2B(22035.276mil,14519.37mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-2(22035.276mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22080.488mil|Location2.X=22147.543mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22080.488mil|Location2.X=22147.543mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True">Pad J1-3A(22114.016mil,14283.15mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True">Pad J1-3(22153.386mil,14283.15mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22159.228mil|Location2.X=22226.283mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22159.228mil|Location2.X=22226.283mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True">Pad J1-3B(22192.756mil,14283.15mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True">Pad J1-3(22153.386mil,14283.15mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22106.472mil|Location2.X=22173.528mil|Location1.Y=17526.472mil|Location2.Y=17593.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22106.472mil|Location2.X=22173.528mil|Location1.Y=17526.472mil|Location2.Y=17593.528mil|Absolute=True">Pad P3-6(22140mil,17560mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22048.441mil|Location2.X=22111.559mil|Location1.Y=17543.441mil|Location2.Y=17606.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22048.441mil|Location2.X=22111.559mil|Location1.Y=17543.441mil|Location2.Y=17606.559mil|Absolute=True">Pad R13-1(22080mil,17575mil)  Multi-Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDXJSV24Z0JBY3CVICKGOEC4QK2C43HAOIREPQYNNF234O0A1NYDXF"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22265mil|Location2.X=22284.37mil|Location1.Y=15937.48mil|Location2.Y=16382.598mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22265mil|Location2.X=22284.37mil|Location1.Y=15937.48mil|Location2.Y=16382.598mil|Absolute=True">Un-Routed Net Constraint: Net NetBZ1_2 Between Pad BZ1-2 (22265,15937.48mil) And Pad Q1-1 (22284.37,16382.598mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=24265mil|Location1.Y=15320mil|Location2.Y=15000mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=24265mil|Location1.Y=15320mil|Location2.Y=15000mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R1-2 (22445,15320mil) And Pad P1-11 (24265,15000mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24265mil|Location2.X=25532.559mil|Location1.Y=15000mil|Location2.Y=14700mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24265mil|Location2.X=25532.559mil|Location1.Y=15000mil|Location2.Y=14700mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad P1-11 (24265,15000mil) And Pad R9-2 (25532.559,14700mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=22265mil|Location1.Y=17160mil|Location2.Y=15780mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=22265mil|Location1.Y=17160mil|Location2.Y=15780mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad P3-2 (22140,17160mil) And Pad BZ1-1 (22265,15780mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24065mil|Location2.X=24265mil|Location1.Y=16200mil|Location2.Y=15000mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24065mil|Location2.X=24265mil|Location1.Y=16200mil|Location2.Y=15000mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad P2-12 (24065,16200mil) And Pad P1-11 (24265,15000mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=22605mil|Location1.Y=15320mil|Location2.Y=14500mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=22605mil|Location1.Y=15320mil|Location2.Y=14500mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R1-2 (22445,15320mil) And Pad S2-2 (22605,14500mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22265mil|Location2.X=22445mil|Location1.Y=15780mil|Location2.Y=15320mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22265mil|Location2.X=22445mil|Location1.Y=15780mil|Location2.Y=15320mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad BZ1-1 (22265,15780mil) And Pad R1-2 (22445,15320mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25532.559mil|Location2.X=25857.441mil|Location1.Y=14700mil|Location2.Y=14520mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25532.559mil|Location2.X=25857.441mil|Location1.Y=14700mil|Location2.Y=14520mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad R9-2 (25532.559,14700mil) And Pad R2-1 (25857.441,14520mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21960mil|Location2.X=22140mil|Location1.Y=17420mil|Location2.Y=17160mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21960mil|Location2.X=22140mil|Location1.Y=17420mil|Location2.Y=17160mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J2-1 (21960,17420mil) And Pad P3-2 (22140,17160mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21960mil|Location2.X=22080mil|Location1.Y=17420mil|Location2.Y=17575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21960mil|Location2.X=22080mil|Location1.Y=17420mil|Location2.Y=17575mil|Absolute=True">Un-Routed Net Constraint: Net VCC Between Pad J2-1 (21960,17420mil) And Pad R13-1 (22080,17575mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23275mil|Location2.X=25477.441mil|Location1.Y=15300mil|Location2.Y=14700mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23275mil|Location2.X=25477.441mil|Location1.Y=15300mil|Location2.Y=14700mil|Absolute=True">Un-Routed Net Constraint: Net NetR9_1 Between Pad U1-1 (23275,15300mil) And Pad R9-1 (25477.441,14700mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25912.559mil|Location2.X=26245mil|Location1.Y=14520mil|Location2.Y=14580mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25912.559mil|Location2.X=26245mil|Location1.Y=14520mil|Location2.Y=14580mil|Absolute=True">Un-Routed Net Constraint: Net NetR2_2 Between Pad R2-2 (25912.559,14520mil) And Pad S1-1 (26245,14580mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21485mil|Location2.X=22284.37mil|Location1.Y=16692.441mil|Location2.Y=16457.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21485mil|Location2.X=22284.37mil|Location1.Y=16692.441mil|Location2.Y=16457.401mil|Absolute=True">Un-Routed Net Constraint: Net NetQ1_2 Between Pad R12-1 (21485,16692.441mil) And Pad Q1-2 (22284.37,16457.401mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=23265mil|Location1.Y=17360mil|Location2.Y=16200mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=23265mil|Location1.Y=17360mil|Location2.Y=16200mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_20 Between Pad P3-4 (22140,17360mil) And Pad P2-20 (23265,16200mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23265mil|Location2.X=23275mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23265mil|Location2.X=23275mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_20 Between Pad P2-20 (23265,16200mil) And Pad U1-40 (23275,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=23365mil|Location1.Y=17460mil|Location2.Y=16200mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=23365mil|Location1.Y=17460mil|Location2.Y=16200mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_19 Between Pad P3-5 (22140,17460mil) And Pad P2-19 (23365,16200mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23365mil|Location2.X=23375mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23365mil|Location2.X=23375mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_19 Between Pad P2-19 (23365,16200mil) And Pad U1-39 (23375,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23465mil|Location2.X=23475mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23465mil|Location2.X=23475mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_18 Between Pad P2-18 (23465,16200mil) And Pad U1-38 (23475,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23565mil|Location2.X=23575mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23565mil|Location2.X=23575mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_17 Between Pad P2-17 (23565,16200mil) And Pad U1-37 (23575,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23665mil|Location2.X=23675mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23665mil|Location2.X=23675mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_16 Between Pad P2-16 (23665,16200mil) And Pad U1-36 (23675,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23765mil|Location2.X=23775mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23765mil|Location2.X=23775mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_15 Between Pad P2-15 (23765,16200mil) And Pad U1-35 (23775,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23865mil|Location2.X=23875mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23865mil|Location2.X=23875mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_14 Between Pad P2-14 (23865,16200mil) And Pad U1-34 (23875,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23965mil|Location2.X=23975mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23965mil|Location2.X=23975mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_13 Between Pad P2-13 (23965,16200mil) And Pad U1-33 (23975,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24265mil|Location2.X=26220mil|Location1.Y=16200mil|Location2.Y=16652.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24265mil|Location2.X=26220mil|Location1.Y=16200mil|Location2.Y=16652.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_10 Between Pad P2-10 (24265,16200mil) And Pad R11-1 (26220,16652.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24265mil|Location2.X=24275mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24265mil|Location2.X=24275mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_10 Between Pad P2-10 (24265,16200mil) And Pad U1-30 (24275,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24365mil|Location2.X=26235mil|Location1.Y=16200mil|Location2.Y=16392.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24365mil|Location2.X=26235mil|Location1.Y=16200mil|Location2.Y=16392.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_9 Between Pad P2-9 (24365,16200mil) And Pad R10-1 (26235,16392.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24365mil|Location2.X=24375mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24365mil|Location2.X=24375mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_9 Between Pad P2-9 (24365,16200mil) And Pad U1-29 (24375,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24465mil|Location2.X=26215mil|Location1.Y=16200mil|Location2.Y=16132.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24465mil|Location2.X=26215mil|Location1.Y=16200mil|Location2.Y=16132.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_8 Between Pad P2-8 (24465,16200mil) And Pad R8-1 (26215,16132.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24465mil|Location2.X=24475mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24465mil|Location2.X=24475mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_8 Between Pad P2-8 (24465,16200mil) And Pad U1-28 (24475,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24575mil|Location2.X=26225mil|Location1.Y=15900mil|Location2.Y=15937.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24575mil|Location2.X=26225mil|Location1.Y=15900mil|Location2.Y=15937.559mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_7 Between Pad U1-27 (24575,15900mil) And Pad R7-1 (26225,15937.559mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24565mil|Location2.X=24575mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24565mil|Location2.X=24575mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_7 Between Pad P2-7 (24565,16200mil) And Pad U1-27 (24575,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24665mil|Location2.X=24675mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24665mil|Location2.X=24675mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_6 Between Pad P2-6 (24665,16200mil) And Pad U1-26 (24675,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24765mil|Location2.X=24775mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24765mil|Location2.X=24775mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_5 Between Pad P2-5 (24765,16200mil) And Pad U1-25 (24775,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24865mil|Location2.X=24875mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24865mil|Location2.X=24875mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_4 Between Pad P2-4 (24865,16200mil) And Pad U1-24 (24875,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21485mil|Location2.X=24965mil|Location1.Y=16747.559mil|Location2.Y=16200mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21485mil|Location2.X=24965mil|Location1.Y=16747.559mil|Location2.Y=16200mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_3 Between Pad R12-2 (21485,16747.559mil) And Pad P2-3 (24965,16200mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24965mil|Location2.X=24975mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24965mil|Location2.X=24975mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_3 Between Pad P2-3 (24965,16200mil) And Pad U1-23 (24975,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25075mil|Location2.X=26235mil|Location1.Y=15900mil|Location2.Y=15632.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25075mil|Location2.X=26235mil|Location1.Y=15900mil|Location2.Y=15632.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_2 Between Pad U1-22 (25075,15900mil) And Pad R6-1 (26235,15632.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25065mil|Location2.X=25075mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25065mil|Location2.X=25075mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_2 Between Pad P2-2 (25065,16200mil) And Pad U1-22 (25075,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25175mil|Location2.X=26215mil|Location1.Y=15900mil|Location2.Y=15392.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25175mil|Location2.X=26215mil|Location1.Y=15900mil|Location2.Y=15392.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_1 Between Pad U1-21 (25175,15900mil) And Pad R5-1 (26215,15392.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25165mil|Location2.X=25175mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25165mil|Location2.X=25175mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetP2_1 Between Pad P2-1 (25165,16200mil) And Pad U1-21 (25175,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25165mil|Location2.X=26215mil|Location1.Y=15000mil|Location2.Y=15112.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25165mil|Location2.X=26215mil|Location1.Y=15000mil|Location2.Y=15112.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_20 Between Pad P1-20 (25165,15000mil) And Pad R4-1 (26215,15112.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25165mil|Location2.X=25175mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25165mil|Location2.X=25175mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_20 Between Pad P1-20 (25165,15000mil) And Pad U1-20 (25175,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25065mil|Location2.X=26215mil|Location1.Y=15000mil|Location2.Y=14852.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25065mil|Location2.X=26215mil|Location1.Y=15000mil|Location2.Y=14852.441mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_19 Between Pad P1-19 (25065,15000mil) And Pad R3-1 (26215,14852.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25065mil|Location2.X=25075mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25065mil|Location2.X=25075mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_19 Between Pad P1-19 (25065,15000mil) And Pad U1-19 (25075,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24965mil|Location2.X=24975mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24965mil|Location2.X=24975mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_18 Between Pad P1-18 (24965,15000mil) And Pad U1-18 (24975,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24865mil|Location2.X=24875mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24865mil|Location2.X=24875mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_17 Between Pad P1-17 (24865,15000mil) And Pad U1-17 (24875,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24765mil|Location2.X=24775mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24765mil|Location2.X=24775mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_16 Between Pad P1-16 (24765,15000mil) And Pad U1-16 (24775,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24665mil|Location2.X=24675mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24665mil|Location2.X=24675mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_15 Between Pad P1-15 (24665,15000mil) And Pad U1-15 (24675,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24565mil|Location2.X=24575mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24565mil|Location2.X=24575mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_14 Between Pad P1-14 (24565,15000mil) And Pad U1-14 (24575,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24465mil|Location2.X=24475mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24465mil|Location2.X=24475mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_13 Between Pad P1-13 (24465,15000mil) And Pad U1-13 (24475,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24165mil|Location2.X=24175mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24165mil|Location2.X=24175mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_10 Between Pad P1-10 (24165,15000mil) And Pad U1-10 (24175,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24065mil|Location2.X=24075mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24065mil|Location2.X=24075mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_9 Between Pad P1-9 (24065,15000mil) And Pad U1-9 (24075,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23965mil|Location2.X=23975mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23965mil|Location2.X=23975mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_8 Between Pad P1-8 (23965,15000mil) And Pad U1-8 (23975,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23865mil|Location2.X=23875mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23865mil|Location2.X=23875mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_7 Between Pad P1-7 (23865,15000mil) And Pad U1-7 (23875,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23765mil|Location2.X=23775mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23765mil|Location2.X=23775mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_6 Between Pad P1-6 (23765,15000mil) And Pad U1-6 (23775,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23665mil|Location2.X=23675mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23665mil|Location2.X=23675mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_5 Between Pad P1-5 (23665,15000mil) And Pad U1-5 (23675,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23565mil|Location2.X=23575mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23565mil|Location2.X=23575mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_4 Between Pad P1-4 (23565,15000mil) And Pad U1-4 (23575,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23465mil|Location2.X=23475mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23465mil|Location2.X=23475mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_3 Between Pad P1-3 (23465,15000mil) And Pad U1-3 (23475,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=23375mil|Location1.Y=15420mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=23375mil|Location1.Y=15420mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_2 Between Pad R1-3 (22445,15420mil) And Pad U1-2 (23375,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23365mil|Location2.X=23375mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23365mil|Location2.X=23375mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_2 Between Pad P1-2 (23365,15000mil) And Pad U1-2 (23375,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=23265mil|Location1.Y=17060mil|Location2.Y=15000mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=23265mil|Location1.Y=17060mil|Location2.Y=15000mil|Absolute=True">Un-Routed Net Constraint: Net NetP1_1 Between Pad P3-1 (22140,17060mil) And Pad P1-1 (23265,15000mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22114.016mil|Location2.X=22192.756mil|Location1.Y=14283.15mil|Location2.Y=14283.15mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22114.016mil|Location2.X=22192.756mil|Location1.Y=14283.15mil|Location2.Y=14283.15mil|Absolute=True">Un-Routed Net Constraint: Net NetJ1_3A Between Pad J1-3A (22114.016,14283.15mil) And Pad J1-3B (22192.756,14283.15mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22080mil|Location2.X=22820mil|Location1.Y=17875mil|Location2.Y=15379.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22080mil|Location2.X=22820mil|Location1.Y=17875mil|Location2.Y=15379.055mil|Absolute=True">Un-Routed Net Constraint: Net NetD11_1 Between Pad R13-2 (22080,17875mil) And Pad D11-1 (22820,15379.055mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22279.37mil|Location2.X=22820mil|Location1.Y=14529.213mil|Location2.Y=16654.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22279.37mil|Location2.X=22820mil|Location1.Y=14529.213mil|Location2.Y=16654.094mil|Absolute=True">Un-Routed Net Constraint: Net NetD10_1 Between Pad J1-1B (22279.37,14529.213mil) And Pad D10-1 (22820,16654.094mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22279.37mil|Location2.X=22279.37mil|Location1.Y=14430.787mil|Location2.Y=14529.213mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22279.37mil|Location2.X=22279.37mil|Location1.Y=14430.787mil|Location2.Y=14529.213mil|Absolute=True">Un-Routed Net Constraint: Net NetD10_1 Between Pad J1-1A (22279.37,14430.787mil) And Pad J1-1B (22279.37,14529.213mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26220mil|Location2.X=26355.945mil|Location1.Y=16707.559mil|Location2.Y=16680mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26220mil|Location2.X=26355.945mil|Location1.Y=16707.559mil|Location2.Y=16680mil|Absolute=True">Un-Routed Net Constraint: Net NetD8_1 Between Pad R11-2 (26220,16707.559mil) And Pad D8-1 (26355.945,16680mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26235mil|Location2.X=26355.945mil|Location1.Y=16447.559mil|Location2.Y=16420mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26235mil|Location2.X=26355.945mil|Location1.Y=16447.559mil|Location2.Y=16420mil|Absolute=True">Un-Routed Net Constraint: Net NetD7_1 Between Pad R10-2 (26235,16447.559mil) And Pad D7-1 (26355.945,16420mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26355.945mil|Location1.Y=16187.559mil|Location2.Y=16160mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26355.945mil|Location1.Y=16187.559mil|Location2.Y=16160mil|Absolute=True">Un-Routed Net Constraint: Net NetD6_1 Between Pad R8-2 (26215,16187.559mil) And Pad D6-1 (26355.945,16160mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26225mil|Location2.X=26355.945mil|Location1.Y=15882.441mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26225mil|Location2.X=26355.945mil|Location1.Y=15882.441mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net NetD5_1 Between Pad R7-2 (26225,15882.441mil) And Pad D5-1 (26355.945,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26235mil|Location2.X=26345.945mil|Location1.Y=15687.559mil|Location2.Y=15660mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26235mil|Location2.X=26345.945mil|Location1.Y=15687.559mil|Location2.Y=15660mil|Absolute=True">Un-Routed Net Constraint: Net NetD4_1 Between Pad R6-2 (26235,15687.559mil) And Pad D4-1 (26345.945,15660mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26350.945mil|Location1.Y=15447.559mil|Location2.Y=15400mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26350.945mil|Location1.Y=15447.559mil|Location2.Y=15400mil|Absolute=True">Un-Routed Net Constraint: Net NetD3_1 Between Pad R5-2 (26215,15447.559mil) And Pad D3-1 (26350.945,15400mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26350.945mil|Location1.Y=15167.559mil|Location2.Y=15140mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26350.945mil|Location1.Y=15167.559mil|Location2.Y=15140mil|Absolute=True">Un-Routed Net Constraint: Net NetD2_1 Between Pad R4-2 (26215,15167.559mil) And Pad D2-1 (26350.945,15140mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26350.945mil|Location1.Y=14907.559mil|Location2.Y=14880mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26215mil|Location2.X=26350.945mil|Location1.Y=14907.559mil|Location2.Y=14880mil|Absolute=True">Un-Routed Net Constraint: Net NetD1_1 Between Pad R3-2 (26215,14907.559mil) And Pad D1-1 (26350.945,14880mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24205.197mil|Location2.X=26385mil|Location1.Y=17460.945mil|Location2.Y=17664.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24205.197mil|Location2.X=26385mil|Location1.Y=17460.945mil|Location2.Y=17664.094mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad VR1-3 (24205.197,17460.945mil) And Pad D9-1 (26385,17664.094mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22630mil|Location2.X=23407.559mil|Location1.Y=17340mil|Location2.Y=17980mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22630mil|Location2.X=23407.559mil|Location1.Y=17340mil|Location2.Y=17980mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad C3-1 (22630,17340mil) And Pad C5-2 (23407.559,17980mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23647.559mil|Location2.X=24205.197mil|Location1.Y=17960mil|Location2.Y=17460.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23647.559mil|Location2.X=24205.197mil|Location1.Y=17960mil|Location2.Y=17460.945mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad C6-2 (23647.559,17960mil) And Pad VR1-3 (24205.197,17460.945mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23407.559mil|Location2.X=23647.559mil|Location1.Y=17980mil|Location2.Y=17960mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23407.559mil|Location2.X=23647.559mil|Location1.Y=17980mil|Location2.Y=17960mil|Absolute=True">Un-Routed Net Constraint: Net NetC3_1 Between Pad C5-2 (23407.559,17980mil) And Pad C6-2 (23647.559,17960mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25270mil|Location2.X=26385mil|Location1.Y=17100mil|Location2.Y=18075.906mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25270mil|Location2.X=26385mil|Location1.Y=17100mil|Location2.Y=18075.906mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_1 Between Pad C2-1 (25270,17100mil) And Pad D9-2 (26385,18075.906mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24205.197mil|Location2.X=25270mil|Location1.Y=17579.055mil|Location2.Y=17100mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24205.197mil|Location2.X=25270mil|Location1.Y=17579.055mil|Location2.Y=17100mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_1 Between Pad VR1-1 (24205.197,17579.055mil) And Pad C2-1 (25270,17100mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23217.559mil|Location2.X=24205.197mil|Location1.Y=17980mil|Location2.Y=17579.055mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23217.559mil|Location2.X=24205.197mil|Location1.Y=17980mil|Location2.Y=17579.055mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_1 Between Pad C4-2 (23217.559,17980mil) And Pad VR1-1 (24205.197,17579.055mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22820mil|Location2.X=23217.559mil|Location1.Y=17065.906mil|Location2.Y=17980mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22820mil|Location2.X=23217.559mil|Location1.Y=17065.906mil|Location2.Y=17980mil|Absolute=True">Un-Routed Net Constraint: Net NetC2_1 Between Pad D10-2 (22820,17065.906mil) And Pad C4-2 (23217.559,17980mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24275mil|Location2.X=26640mil|Location1.Y=15300mil|Location2.Y=15272.441mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24275mil|Location2.X=26640mil|Location1.Y=15300mil|Location2.Y=15272.441mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad U1-11 (24275,15300mil) And Pad C1-2 (26640,15272.441mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24075mil|Location2.X=24275mil|Location1.Y=15900mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24075mil|Location2.X=24275mil|Location1.Y=15900mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net NetC1_2 Between Pad U1-32 (24075,15900mil) And Pad U1-11 (24275,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24970mil|Location2.X=26474.055mil|Location1.Y=17100mil|Location2.Y=16680mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24970mil|Location2.X=26474.055mil|Location1.Y=17100mil|Location2.Y=16680mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-2 (24970,17100mil) And Pad D8-2 (26474.055,16680mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22820mil|Location2.X=24375mil|Location1.Y=15260.945mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22820mil|Location2.X=24375mil|Location1.Y=15260.945mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D11-2 (22820,15260.945mil) And Pad U1-12 (24375,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26464.055mil|Location2.X=26469.055mil|Location1.Y=15660mil|Location2.Y=15400mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26464.055mil|Location2.X=26469.055mil|Location1.Y=15660mil|Location2.Y=15400mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D4-2 (26464.055,15660mil) And Pad D3-2 (26469.055,15400mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22330mil|Location2.X=23162.441mil|Location1.Y=17340mil|Location2.Y=17980mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22330mil|Location2.X=23162.441mil|Location1.Y=17340mil|Location2.Y=17980mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-2 (22330,17340mil) And Pad C4-1 (23162.441,17980mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24165mil|Location2.X=24213.071mil|Location1.Y=16200mil|Location2.Y=17520mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24165mil|Location2.X=24213.071mil|Location1.Y=16200mil|Location2.Y=17520mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P2-11 (24165,16200mil) And Pad VR1-2 (24213.071,17520mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24175mil|Location2.X=24375mil|Location1.Y=15900mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24175mil|Location2.X=24375mil|Location1.Y=15900mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-31 (24175,15900mil) And Pad U1-12 (24375,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22035.276mil|Location2.X=22805mil|Location1.Y=14519.37mil|Location2.Y=14500mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22035.276mil|Location2.X=22805mil|Location1.Y=14519.37mil|Location2.Y=14500mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-2B (22035.276,14519.37mil) And Pad S2-1 (22805,14500mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26469.055mil|Location2.X=26469.055mil|Location1.Y=15140mil|Location2.Y=15400mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26469.055mil|Location2.X=26469.055mil|Location1.Y=15140mil|Location2.Y=15400mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D2-2 (26469.055,15140mil) And Pad D3-2 (26469.055,15400mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26474.055mil|Location2.X=26474.055mil|Location1.Y=16160mil|Location2.Y=16420mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26474.055mil|Location2.X=26474.055mil|Location1.Y=16160mil|Location2.Y=16420mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D6-2 (26474.055,16160mil) And Pad D7-2 (26474.055,16420mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24319.37mil|Location2.X=24970mil|Location1.Y=17520mil|Location2.Y=17100mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24319.37mil|Location2.X=24970mil|Location1.Y=17520mil|Location2.Y=17100mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad VR1-2 (24319.37,17520mil) And Pad C2-2 (24970,17100mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23592.441mil|Location2.X=24213.071mil|Location1.Y=17960mil|Location2.Y=17520mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23592.441mil|Location2.X=24213.071mil|Location1.Y=17960mil|Location2.Y=17520mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C6-1 (23592.441,17960mil) And Pad VR1-2 (24213.071,17520mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22805mil|Location2.X=22820mil|Location1.Y=14500mil|Location2.Y=15260.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22805mil|Location2.X=22820mil|Location1.Y=14500mil|Location2.Y=15260.945mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad S2-1 (22805,14500mil) And Pad D11-2 (22820,15260.945mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21960mil|Location2.X=22140mil|Location1.Y=17620mil|Location2.Y=17260mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21960mil|Location2.X=22140mil|Location1.Y=17620mil|Location2.Y=17260mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J3-1 (21960,17620mil) And Pad P3-3 (22140,17260mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=22820mil|Location1.Y=15220mil|Location2.Y=15260.945mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22445mil|Location2.X=22820mil|Location1.Y=15220mil|Location2.Y=15260.945mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad R1-1 (22445,15220mil) And Pad D11-2 (22820,15260.945mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24365mil|Location2.X=24375mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24365mil|Location2.X=24375mil|Location1.Y=15000mil|Location2.Y=15300mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P1-12 (24365,15000mil) And Pad U1-12 (24375,15300mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24165mil|Location2.X=24175mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=24165mil|Location2.X=24175mil|Location1.Y=16200mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P2-11 (24165,16200mil) And Pad U1-31 (24175,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=22330mil|Location1.Y=17260mil|Location2.Y=17340mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22140mil|Location2.X=22330mil|Location1.Y=17260mil|Location2.Y=17340mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad P3-3 (22140,17260mil) And Pad C3-2 (22330,17340mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23352.441mil|Location2.X=23592.441mil|Location1.Y=17980mil|Location2.Y=17960mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23352.441mil|Location2.X=23592.441mil|Location1.Y=17980mil|Location2.Y=17960mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C5-1 (23352.441,17980mil) And Pad C6-1 (23592.441,17960mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26474.055mil|Location2.X=26474.055mil|Location1.Y=16420mil|Location2.Y=16680mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26474.055mil|Location2.X=26474.055mil|Location1.Y=16420mil|Location2.Y=16680mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D7-2 (26474.055,16420mil) And Pad D8-2 (26474.055,16680mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26474.055mil|Location2.X=26474.055mil|Location1.Y=15900mil|Location2.Y=16160mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26474.055mil|Location2.X=26474.055mil|Location1.Y=15900mil|Location2.Y=16160mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D5-2 (26474.055,15900mil) And Pad D6-2 (26474.055,16160mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26469.055mil|Location2.X=26469.055mil|Location1.Y=14880mil|Location2.Y=15140mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26469.055mil|Location2.X=26469.055mil|Location1.Y=14880mil|Location2.Y=15140mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D1-2 (26469.055,14880mil) And Pad D2-2 (26469.055,15140mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26464.055mil|Location2.X=26474.055mil|Location1.Y=15660mil|Location2.Y=15900mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26464.055mil|Location2.X=26474.055mil|Location1.Y=15660mil|Location2.Y=15900mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D4-2 (26464.055,15660mil) And Pad D5-2 (26474.055,15900mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26469.055mil|Location2.X=26640mil|Location1.Y=15400mil|Location2.Y=15327.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=26469.055mil|Location2.X=26640mil|Location1.Y=15400mil|Location2.Y=15327.559mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad D3-2 (26469.055,15400mil) And Pad C1-1 (26640,15327.559mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23162.441mil|Location2.X=23352.441mil|Location1.Y=17980mil|Location2.Y=17980mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=23162.441mil|Location2.X=23352.441mil|Location1.Y=17980mil|Location2.Y=17980mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C4-1 (23162.441,17980mil) And Pad C5-1 (23352.441,17980mil)</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22035.276mil|Location2.X=22035.276mil|Location1.Y=14440.63mil|Location2.Y=14519.37mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22035.276mil|Location2.X=22035.276mil|Location1.Y=14440.63mil|Location2.Y=14519.37mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad J1-2A (22035.276,14440.63mil) And Pad J1-2B (22035.276,14519.37mil)</acronym></a><br></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDFBR5EB3K0HAWC2H2EPD0KFXTUEZ1VIHH0DWO3LOBP14ERLBUI5VL"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14495.685mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14495.685mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-1B(22279.37mil,14529.213mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True">Pad J1-1(22279.37mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14397.26mil|Location2.Y=14464.315mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22245.843mil|Location2.X=22312.898mil|Location1.Y=14397.26mil|Location2.Y=14464.315mil|Absolute=True">Pad J1-1A(22279.37mil,14430.787mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22236mil|Location2.X=22322.74mil|Location1.Y=14387.417mil|Location2.Y=14572.583mil|Absolute=True">Pad J1-1(22279.37mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14407.102mil|Location2.Y=14474.157mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14407.102mil|Location2.Y=14474.157mil|Absolute=True">Pad J1-2A(22035.276mil,14440.63mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-2(22035.276mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14485.843mil|Location2.Y=14552.898mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22001.748mil|Location2.X=22068.803mil|Location1.Y=14485.843mil|Location2.Y=14552.898mil|Absolute=True">Pad J1-2B(22035.276mil,14519.37mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=21991.906mil|Location2.X=22078.646mil|Location1.Y=14397.26mil|Location2.Y=14562.74mil|Absolute=True">Pad J1-2(22035.276mil,14480mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22080.488mil|Location2.X=22147.543mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22080.488mil|Location2.X=22147.543mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True">Pad J1-3A(22114.016mil,14283.15mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True">Pad J1-3(22153.386mil,14283.15mil)  Multi-Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22159.228mil|Location2.X=22226.283mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22159.228mil|Location2.X=22226.283mil|Location1.Y=14249.622mil|Location2.Y=14316.677mil|Absolute=True">Pad J1-3B(22192.756mil,14283.15mil)  Multi-Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=D:\Altium work\PCB PROJECT 1\MCU_Boardfor traning.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=22070.646mil|Location2.X=22236.126mil|Location1.Y=14239.78mil|Location2.Y=14326.52mil|Absolute=True">Pad J1-3(22153.386mil,14283.15mil)  Multi-Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

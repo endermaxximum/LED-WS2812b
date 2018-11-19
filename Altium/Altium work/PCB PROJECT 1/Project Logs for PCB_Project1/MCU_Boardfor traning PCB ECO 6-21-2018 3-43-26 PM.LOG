@@ -1,0 +1,64 @@
+Removed Pin From Net: NetName=GND Pin=R1-1
+Removed Pin From Net: NetName=VCC Pin=R1-2
+Removed Pin From Net: NetName=NetP1_2 Pin=R1-3
+Removed Pin From Net: NetName=VCC Pin=R2-1
+Removed Pin From Net: NetName=NetR2_2 Pin=R2-2
+Removed Pin From Net: NetName=NetD1_1 Pin=R3-1
+Removed Pin From Net: NetName=NetP1_19 Pin=R3-2
+Removed Pin From Net: NetName=NetD2_1 Pin=R4-1
+Removed Pin From Net: NetName=NetP1_20 Pin=R4-2
+Removed Pin From Net: NetName=NetD3_1 Pin=R5-1
+Removed Pin From Net: NetName=NetP2_1 Pin=R5-2
+Removed Pin From Net: NetName=NetD4_1 Pin=R6-1
+Removed Pin From Net: NetName=NetP2_2 Pin=R6-2
+Removed Pin From Net: NetName=NetD5_1 Pin=R7-1
+Removed Pin From Net: NetName=NetP2_7 Pin=R7-2
+Removed Pin From Net: NetName=NetD6_1 Pin=R8-1
+Removed Pin From Net: NetName=NetP2_8 Pin=R8-2
+Removed Pin From Net: NetName=NetR9_1 Pin=R9-1
+Removed Pin From Net: NetName=VCC Pin=R9-2
+Removed Pin From Net: NetName=NetD7_1 Pin=R10-1
+Removed Pin From Net: NetName=NetP2_9 Pin=R10-2
+Removed Pin From Net: NetName=NetD8_1 Pin=R11-1
+Removed Pin From Net: NetName=NetP2_10 Pin=R11-2
+Removed Pin From Net: NetName=NetP2_3 Pin=R12-1
+Removed Pin From Net: NetName=NetQ1_2 Pin=R12-2
+Removed Member From Class: ClassName=MCU Member=R6
+Change Component Footprint: Designator=R3 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R4 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R5 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R7 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R8 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R11 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R12 Old Footprint=AXIAL-0.3 New Footprint=RESC1005M
+Change Component Footprint: Designator=R1 Old Footprint=RPOT New Footprint=RESC1005M
+Change Component Comment : Designator=R1 Old Comment=Res pot  New Comment=Res1
+Added Component: Designator=R2(RESC1005M)
+Added Component: Designator=R10(RESC1005M)
+Added Pin To Net: NetName=NetP1_19 Pin=R1-1
+Added Pin To Net: NetName=NetD1_1 Pin=R1-2
+Added Pin To Net: NetName=GND Pin=R2-1
+Added Pin To Net: NetName=VCC Pin=R2-1
+Added Pin To Net: NetName=NetR2_2 Pin=R2-2
+Added Pin To Net: NetName=VCC Pin=R2-2
+Added Pin To Net: NetName=NetP1_20 Pin=R3-1
+Added Pin To Net: NetName=NetD2_1 Pin=R3-2
+Added Pin To Net: NetName=NetP2_1 Pin=R4-1
+Added Pin To Net: NetName=NetD3_1 Pin=R4-2
+Added Pin To Net: NetName=NetP2_2 Pin=R5-1
+Added Pin To Net: NetName=NetD4_1 Pin=R5-2
+Added Pin To Net: NetName=NetP2_7 Pin=R7-1
+Added Pin To Net: NetName=NetD5_1 Pin=R7-2
+Added Pin To Net: NetName=NetP2_8 Pin=R8-1
+Added Pin To Net: NetName=NetD6_1 Pin=R8-2
+Added Pin To Net: NetName=NetP2_9 Pin=R9-1
+Added Pin To Net: NetName=NetD7_1 Pin=R9-2
+Added Pin To Net: NetName=NetR9_1 Pin=R10-1
+Added Pin To Net: NetName=VCC Pin=R10-2
+Added Pin To Net: NetName=NetP2_10 Pin=R11-1
+Added Pin To Net: NetName=NetD8_1 Pin=R11-2
+Added Pin To Net: NetName=NetQ1_2 Pin=R12-1
+Added Pin To Net: NetName=NetP2_3 Pin=R12-2
+Change Net Name : Old Net Name=NetR9_1 New Net Name=NetR10_1
+Added Room: Name=MCU
+Added Room: Name=POWER

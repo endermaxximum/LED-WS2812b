@@ -1,0 +1,44 @@
+Change Component DesignItemId : Designator=P1 Old DesignItemId=MHDR1X20 New DesignItemId=Header 20
+Change Component DesignItemId : Designator=P2 Old DesignItemId=MHDR1X20 New DesignItemId=Header 20
+Change Component DesignItemId : Designator=R1 Old DesignItemId=Res1 New DesignItemId=Res Tap
+Change Component Comment : Designator=R1 Old Comment=Res pot  New Comment=Res pot
+Change Component Description : Designator=R1 Old Description=Resistor 10k 5% 1/8W 8050 New Description=Tapped Resistor
+Change Component Description : Designator=R3 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R4 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R5 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R6 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R7 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R8 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R10 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R11 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Change Component Description : Designator=R12 Old Description=Resistor New Description=Resistor 10k 5% 1/8W 8050
+Added Component: Designator=LCD(PCBComponent_1)
+Added Pin To Net: NetName=GND Pin=LCD-1
+Added Pin To Net: NetName=VCC Pin=LCD-2
+Added Pin To Net: NetName=VCC Pin=LCD-3
+Added Pin To Net: NetName=NetP1_2 Pin=LCD-4
+Added Pin To Net: NetName=NetP1_3 Pin=LCD-5
+Added Pin To Net: NetName=NetP1_4 Pin=LCD-6
+Added Pin To Net: NetName=NetP1_5 Pin=LCD-7
+Added Pin To Net: NetName=NetP1_6 Pin=LCD-8
+Added Pin To Net: NetName=NetP1_7 Pin=LCD-9
+Added Pin To Net: NetName=NetP1_14 Pin=LCD-10
+Added Pin To Net: NetName=NetP1_13 Pin=LCD-11
+Added Pin To Net: NetName=NetP2_14 Pin=LCD-12
+Added Pin To Net: NetName=NetP2_15 Pin=LCD-13
+Added Pin To Net: NetName=NetP2_16 Pin=LCD-14
+Added Pin To Net: NetName=VCC Pin=LCD-15
+Added Pin To Net: NetName=GND Pin=LCD-16
+Change Net Name : Old Net Name=NetP1_2 New Net Name=NetLCD_4
+Change Net Name : Old Net Name=NetP1_3 New Net Name=NetLCD_5
+Change Net Name : Old Net Name=NetP1_4 New Net Name=NetLCD_6
+Change Net Name : Old Net Name=NetP1_5 New Net Name=NetLCD_7
+Change Net Name : Old Net Name=NetP1_6 New Net Name=NetLCD_8
+Change Net Name : Old Net Name=NetP1_7 New Net Name=NetLCD_9
+Change Net Name : Old Net Name=NetP1_13 New Net Name=NetLCD_11
+Change Net Name : Old Net Name=NetP1_14 New Net Name=NetLCD_10
+Change Net Name : Old Net Name=NetP2_14 New Net Name=NetLCD_12
+Change Net Name : Old Net Name=NetP2_15 New Net Name=NetLCD_13
+Change Net Name : Old Net Name=NetP2_16 New Net Name=NetLCD_14
+Added Member To Class: ClassName=MCU Member=Component LCD LCD16x4
+Added Room: Name=MCU
